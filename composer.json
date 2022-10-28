@@ -7,7 +7,8 @@
     "require": {
         "php": "^7.3|^8.0",
         "callcocam/tall-base": "dev-main",
-        "callcocam/tall-sluggable": "dev-main"
+        "callcocam/tall-sluggable": "dev-main",
+        "callcocam/tall-schema": "dev-main"
     },
     "autoload": {
         "psr-4": {
