@@ -20,6 +20,14 @@ class EditComponent extends FormComponent
         $this->setFormProperties($model);
     }
 
+    public function delete()
+    {
+
+       $this->model->forceDelete();
+       $this->showModal = false;
+       $this->emit('refreshDelete', []);
+
+    }
 
     public function rules()
     {

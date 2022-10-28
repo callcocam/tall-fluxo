@@ -63,7 +63,15 @@ class TallFluxoServiceProvider extends ServiceProvider
             Livewire::component( 'tall::admin.fluxo.fields.delete-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\DeleteComponent::class);
             Livewire::component( 'tall::admin.fluxo.fields.order-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\OrderComponent::class);
             
+            Livewire::component( 'tall::admin.fluxos.fields.attributes.edit-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Attributes\EditComponent::class);
+            Livewire::component( 'tall::admin.fluxos.fields.attributes.create-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Attributes\CreateComponent::class);
             
+            Livewire::component( 'tall::admin.fluxos.fields.options.edit-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Options\EditComponent::class);
+            Livewire::component( 'tall::admin.fluxos.fields.options.create-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Options\CreateComponent::class);
+            
+            Livewire::component( 'tall::admin.fluxos.fields.db.edit-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Db\EditComponent::class);
+            Livewire::component( 'tall::admin.fluxos.fields.db.create-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Db\CreateComponent::class);
+
             Livewire::component( 'tall::admin.fluxo.etapas.create-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Etapas\CreateComponent::class);
             Livewire::component( 'tall::admin.fluxo.etapas.edit-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Etapas\EditComponent::class);
             

@@ -11,7 +11,7 @@ use Tall\Models\AbstractModel;
 use Tall\Tenant\BelongsToTenants;
 use Tall\Tenant\Models\Concerns\UsesTenantConnection;
 
-class FluxoField extends AbstractModel
+class FluxoFieldAttribute extends AbstractModel
 {
     use HasFactory, BelongsToTenants, UsesTenantConnection;
 
@@ -28,19 +28,4 @@ class FluxoField extends AbstractModel
     ];
 
     //protected $table = "table";
-
-    public function fluxo_field_attributes()
-    {
-        return $this->hasMany(FluxoFieldAttribute::class)->orderBy('ordering');
-    }
-    
-    public function fluxo_field_options()
-    {
-        return $this->hasMany(FluxoFieldOption::class)->orderBy('ordering');
-    }
-    
-    public function fluxo_field_db()
-    {
-        return $this->hasOne(FluxoFieldDb::class);
-    }
 }

@@ -33,7 +33,7 @@
                 <button class="p-1">
                     <x-tall-icon name="pencil" class="h-6 w-6" />
                 </button>
-                <button type="button" class="p-1">
+                <button type="button" class="p-1" wire:click='delete'>
                     <x-tall-icon name="trash" class="h-6 w-6" />
                 </button>
                 <a target="__blank" href="{{ route(sprintf("admin.%s.processo.%s", $model->fluxo->route,$model->route), ['path'=>$model->path]) }}">

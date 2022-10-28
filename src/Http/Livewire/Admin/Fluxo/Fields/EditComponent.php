@@ -38,17 +38,7 @@ class EditComponent extends FormComponent
     protected function fields(){
         return [
             'view'=> \Tall\View\Components\Form\Radio::make('Selecione uma vizualização', 'view')
-            ->array(
-                array_flip([
-                    'text'=>'Text',
-                    'textarea'=>'Textarea',
-                    'radio'=>'Seleção unica',
-                    'checkbox'=>'Seleção multipla',
-                    'select'=>'Seleção suspensa',
-                    'date'=>'Data',
-                    'datetime-local'=>'Data e Hora',
-                ])
-            )->order(2)
+            ->array(array_combine(config('tall-fluxo.views.form',[]),config('tall-fluxo.views.form',[])))->order(2)
         ];
     }
     

@@ -40,7 +40,7 @@
                 <button class="p-1">
                     <x-tall-icon name="pencil" class="h-6 w-6" />
                 </button>
-                <button type="button" class="p-1">
+                <button type="button" class="p-1"  wire:click='delete'>
                     <x-tall-icon name="trash" class="h-6 w-6" />
                 </button>
                 <x-tall-icon name="arrows-expand" class="h-6 w-6 draggable-handler" />

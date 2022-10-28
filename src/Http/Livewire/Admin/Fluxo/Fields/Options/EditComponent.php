@@ -5,20 +5,17 @@
 * https://www.bengs.com.br
 */
 
-namespace Tall\Fluxo\Http\Livewire\Admin\Fluxo\Etapas\Items;
+namespace Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Options;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Tall\Http\Livewire\FormComponent;
-use Tall\Fluxo\Models\FluxoEtapaItem;
-use Tall\Fluxo\Models\FluxoField;
+use Tall\Fluxo\Models\FluxoFieldOption;
 
 class EditComponent extends FormComponent
 {
-    use AuthorizesRequests;
 
     public $title = "Editar";
 
-    public function mount(FluxoEtapaItem $model)
+    public function mount(FluxoFieldOption $model)
     {
         $this->setFormProperties($model);
     }
@@ -39,18 +36,8 @@ class EditComponent extends FormComponent
         ];
     }
 
-    public function getListProperty()
-    {
-        return 'admin.fluxos';
-    }
-
-    public function getFluxoFieldsProperty()
-    {
-        return  FluxoField::query()->where('status','published')->pluck('name','id')->toArray();
-    }
-
     public function view()
     {
-        return 'tall::admin.fluxos.etapas.items.edit';
+        return 'tall::admin.fluxos.fields.options.edit';
     }
 }
