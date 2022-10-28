@@ -1,0 +1,27 @@
+{
+    "name": "callcocam/tall-fluxo",
+    "type": "package",
+    "description": "The packages auto slug laravel model.",
+    "keywords": ["framework", "laravel", "livewire", "alpinejs", "tailwindcss"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.3|^8.0",
+        "callcocam/tall-base": "dev-main",
+        "callcocam/tall-sluggable": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tall\\Fluxo\\": "src"
+        }
+    },
+    
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tall\\Fluxo\\Providers\\TallFluxoServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
