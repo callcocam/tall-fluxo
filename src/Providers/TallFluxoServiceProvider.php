@@ -56,6 +56,16 @@ class TallFluxoServiceProvider extends ServiceProvider
             Livewire::component( 'tall::admin.fluxo.delete-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\DeleteComponent::class);
             Livewire::component( 'tall::admin.fluxo.order-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\OrderComponent::class);
             
+
+            
+            Livewire::component( 'tall::admin.fluxo.processo.list-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo\ListComponent::class);
+            Livewire::component( 'tall::admin.fluxo.processo.edit-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo\EditComponent::class);
+            Livewire::component( 'tall::admin.fluxo.processo.create-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo\CreateComponent::class);
+            Livewire::component( 'tall::admin.fluxo.processo.show-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo\ShowComponent::class);
+            Livewire::component( 'tall::admin.fluxo.processo.delete-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo\DeleteComponent::class);
+            
+
+
             Livewire::component( 'tall::admin.fluxo.fields.list-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\ListComponent::class);
             Livewire::component( 'tall::admin.fluxo.fields.edit-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\EditComponent::class);
             Livewire::component( 'tall::admin.fluxo.fields.create-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\CreateComponent::class);

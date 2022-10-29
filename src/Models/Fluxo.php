@@ -15,6 +15,7 @@ class Fluxo extends AbstractModel
     use HasFactory,UsesTenantConnection;
  
     protected $guarded = ['id'];
+
     // protected $with = ['fluxo_etapas', 'fluxo_etapa_produtos','fluxo_fields'];
 
      /**

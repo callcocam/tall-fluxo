@@ -60,7 +60,7 @@ if($fluxos){
                             Route::get(sprintf("%s/{path}/{model}/editar",$fluxo_etapa->route ),sprintf("%s\EditComponent", $fluxo->component))->name(sprintf("admin.%s.processo.%s.edit", $fluxo->route,$fluxo_etapa->route)); 
                         }
                         if(class_exists(sprintf("%s\ShowComponent", $fluxo->component))){
-                            Route::get(sprintf("%s/{path}/vizualizr",$fluxo_etapa->route ),sprintf("%s\ShowComponent", $fluxo->component))->name(sprintf("admin.%s.processo.%s.view", $fluxo->route,$fluxo_etapa->route)); 
+                            Route::get(sprintf("%s/{path}/{model}/vizualizr",$fluxo_etapa->route ),sprintf("%s\ShowComponent", $fluxo->component))->name(sprintf("admin.%s.processo.%s.view", $fluxo->route,$fluxo_etapa->route)); 
                         }
                        
                     }

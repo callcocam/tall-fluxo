@@ -11,12 +11,11 @@ use Tall\Models\AbstractModel;
 use Tall\Tenant\BelongsToTenants;
 use Tall\Tenant\Models\Concerns\UsesTenantConnection;
 
-class FluxoField extends AbstractModel
+class FluxoEtapaProdutoItem extends AbstractModel
 {
     use HasFactory, BelongsToTenants, UsesTenantConnection;
 
     protected $guarded = ['id'];
-    protected $with = ['fluxo_field_attributes', 'fluxo_field_options','fluxo_field_db'];
 
      /**
      * The attributes that should be cast.
@@ -29,19 +28,9 @@ class FluxoField extends AbstractModel
     ];
 
     //protected $table = "table";
-
-    public function fluxo_field_attributes()
-    {
-        return $this->hasMany(FluxoFieldAttribute::class)->orderBy('ordering');
-    }
     
-    public function fluxo_field_options()
+    public function fluxo_etapa_produto()
     {
-        return $this->hasMany(FluxoFieldOption::class)->orderBy('ordering');
-    }
-    
-    public function fluxo_field_db()
-    {
-        return $this->hasOne(FluxoFieldDb::class);
+        return $this->hasOne(FluxoEtapaProduto::class);
     }
 }

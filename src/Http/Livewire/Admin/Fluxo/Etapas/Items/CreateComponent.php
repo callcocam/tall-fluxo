@@ -10,6 +10,7 @@ namespace Tall\Fluxo\Http\Livewire\Admin\Fluxo\Etapas\Items;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Tall\Http\Livewire\FormComponent;
 use Tall\Fluxo\Models\FluxoEtapa;
+use Tall\Fluxo\Models\FluxoField;
 
 class CreateComponent extends FormComponent
 {
@@ -22,6 +23,10 @@ class CreateComponent extends FormComponent
     {
         $this->setFormProperties($model);
         data_set($this->data,'fluxo_etapa_items.name', '');
+        data_set($this->data,'fluxo_etapa_items.evento', 'defer');
+        data_set($this->data,'fluxo_etapa_items.type', 'text');
+        data_set($this->data,'fluxo_etapa_items.width', '12');
+        data_set($this->data,'fluxo_etapa_items.visible', '1');
         data_set($this->data,'fluxo_etapa_items.user_id', auth()->id());
         data_set($this->data,'fluxo_etapa_items.status', 'published');
         data_set($this->data,'fluxo_etapa_items.created_at', now()->format("Y-m-d"));
@@ -37,6 +42,10 @@ class CreateComponent extends FormComponent
                 $this->emit('refreshCreate', $model);
                 $this->reset(['data']);
                 data_set($this->data,'fluxo_etapa_items.name', '');
+                data_set($this->data,'fluxo_etapa_items.evento', 'defer');
+                data_set($this->data,'fluxo_etapa_items.type', 'text');
+                data_set($this->data,'fluxo_etapa_items.width', '12');
+                data_set($this->data,'fluxo_etapa_items.visible', '1');
                 data_set($this->data,'fluxo_etapa_items.user_id', auth()->id());
                 data_set($this->data,'fluxo_etapa_items.status', 'published');
                 data_set($this->data,'fluxo_etapa_items.created_at', now()->format("Y-m-d"));
@@ -54,6 +63,11 @@ class CreateComponent extends FormComponent
         return [
             'name'=>'required'
         ];
+    }
+
+    public function getFluxoFieldsProperty()
+    {
+        return  FluxoField::query()->where('status','published')->pluck('name','id')->toArray();
     }
 
     public function view()

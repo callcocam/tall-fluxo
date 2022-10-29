@@ -26,15 +26,38 @@ class CreateComponent extends FormComponent
         $this->path = $path;
 
         $this->setFormProperties($model, FluxoEtapa::query()->where('path', $path)->first());
-       
+       unset($this->data['produtos']);
     }
+    protected function save(){
+        try {
+            $this->model = $this->model->create([
+                'fluxo_id'=>data_get($this->config,'fluxo.id')
+            ]);
+            if ($this->model->exists) {
+                foreach($this->data as $fluxo_field_id => $name){
+                    $this->model->fluxo_etapa_produto_items()->create(
+                        [
+                            "fluxo_field_id"=>$fluxo_field_id,
+                            "name"=>$name
+                        ]
+                    );
+                }
+                $this->success( __('sucesso'), __("Cadastro atualizado com sucesso!!"));
+                $params=[];
+                $params['path'] = $this->config->path;
+                $params['model'] = $this->model;
+                return redirect()->route(sprintf('admin.%s.processo.%s.edit', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route),$params);
+            }
+            return false;
+        } catch (\PDOException $PDOException) {
+            $this->error('erro', __($PDOException->getMessage()));
+            return false;
+        }
 
-
+    }
     public function rules()
     {
-        return [
-            'name'=>'required'
-        ];
+        return [];
     }
 
     

@@ -27,27 +27,53 @@ class EditComponent extends FormComponent
         $this->setFormProperties($model, FluxoEtapa::query()->where('path', $path)->first());
     }
 
+     /**
+     * @param null $model
+     */
+    public function setFormProperties($model = null, $config=null)
+    {
+        $this->model = $model;
+        $this->config = $config;
+        if ($model) {
+            $this->data = data_get($model, 'produtos');
+        }
+    }
+    protected function save(){ 
+        try {
+            foreach($this->data as $fluxo_field_id => $name){
+                $data['name']=$name;
+                $data['fluxo_field_id']=$fluxo_field_id;
+                 if($model=  $this->model->fluxo_etapa_produto_items()
+                 ->where('fluxo_field_id',$fluxo_field_id)
+                 ->first()){
+                    $model->update($data);
+                }
+                else{
+                    $this->model->fluxo_etapa_produto_items()->create($data);
+                }
+            }
+            $this->success( __('sucesso'), __("Cadastro atualizado com sucesso!!"));
+            return true;
+        } catch (\PDOException $PDOException) {
+            $this->error('erro', __($PDOException->getMessage()));
+            return false;
+        }
+
+    }
     public function rules()
     {
-        return [
-            'name' => 'required',
-        ];
+        return [ ];
     }
-
-    protected function fields(){
-        return [
-            'route'=> \Tall\View\Components\Form\Input::make('Rota de acesso', 'route')->order(2),
-            'path'=> \Tall\View\Components\Form\Input::make('Url', 'path')->order(3),
-            'component'=> \Tall\View\Components\Form\Input::make('Componente', 'component')->order(2),
-        ];
-    }
-   
     
     public function getListProperty()
     {
         return sprintf('admin.%s.processo.%s', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
     }
 
+    public function getFluxoEtapaItemsProperty()
+    {
+       return  $this->config->fluxo_etapa_items;
+    }
     public function view()
     {
         return sprintf('tall::admin.%s.processo.edit', data_get($this->config, 'fluxo.route', 'fluxos'));
