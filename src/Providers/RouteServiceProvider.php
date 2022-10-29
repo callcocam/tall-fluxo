@@ -8,7 +8,7 @@ namespace Tall\Fluxo\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Schema;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -37,15 +37,17 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(__DIR__.'/../../routes/api.php');
 
-
-            Route::prefix(config('tall.multitenancy.prefix','admin'))
-            ->middleware([
-                'web',
-                'auth:sanctum',
-                 config('jetstream.auth_session'),
-                'verified'
-            ])->namespace($this->namespace)
-                ->group(__DIR__.'/../../routes/web.php');
+            if (Schema::hasTable('fluxos')) {
+                Route::prefix(config('tall.multitenancy.prefix','admin'))
+                ->middleware([
+                    'web',
+                    'auth:sanctum',
+                    config('jetstream.auth_session'),
+                    'verified'
+                ])->namespace($this->namespace)
+                    ->group(__DIR__.'/../../routes/web.php');
+            }
+         
         });
     }
 
