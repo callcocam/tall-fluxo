@@ -44,8 +44,14 @@ class TallFluxoServiceProvider extends ServiceProvider
         $this->loadMigrations();
         $this->publishViews();
         
-        $this->configureDynamicComponent(dirname(__DIR__,2));
-
+        // $this->configureDynamicComponent(dirname(__DIR__,2));
+        if(is_dir(resource_path('views/vendor/tall/components')))
+        {
+            $this->configureDynamicComponent(resource_path('views/vendor/tall/components'));
+        }
+        else{
+            $this->configureDynamicComponent(sprintf("%s/resources/views/components", dirname(__DIR__,2)));
+        }
         
         if (class_exists(Livewire::class)) {
             //ADMIN FLUXO
@@ -100,7 +106,7 @@ class TallFluxoServiceProvider extends ServiceProvider
      */
     public function configureDynamicComponent($path,$search=".blade.php")
     {
-       foreach ((new Finder)->in(sprintf("%s/resources/views/components", $path))->files()->name('*.blade.php') as $component) {                   
+       foreach ((new Finder)->in($path)->files()->name('*.blade.php') as $component) {                   
             $componentPath = $component->getRealPath();     
             $namespace = Str::beforeLast($componentPath, $search);
             $namespace = Str::afterLast($namespace, 'components/');
