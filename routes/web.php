@@ -48,23 +48,26 @@ $fluxos = Fluxo::query()->where('status', 'published')
 if($fluxos){   
     foreach($fluxos as $fluxo){
         Route::prefix($fluxo->path)->group(function() use($fluxo) {           
-            if($fluxo_etapas = $fluxo->fluxo_etapas){
-                foreach($fluxo_etapas as $fluxo_etapa){
-                        if(class_exists(sprintf("%s\ListComponent", $fluxo->component))){
-                            Route::get(sprintf("%s/{path}",$fluxo_etapa->route ),sprintf("%s\ListComponent", $fluxo->component))->name(sprintf("admin.%s.processo.%s", $fluxo->route,$fluxo_etapa->route)); 
-                        }
-                        if(class_exists(sprintf("%s\CreateComponent", $fluxo->component))){
-                            Route::get(sprintf("%s/{path}/cadastrar",$fluxo_etapa->route ),sprintf("%s\CreateComponent", $fluxo->component))->name(sprintf("admin.%s.processo.%s.create", $fluxo->route,$fluxo_etapa->route));    
-                        }
-                        if(class_exists(sprintf("%s\EditComponent", $fluxo->component))){
-                            Route::get(sprintf("%s/{path}/{model}/editar",$fluxo_etapa->route ),sprintf("%s\EditComponent", $fluxo->component))->name(sprintf("admin.%s.processo.%s.edit", $fluxo->route,$fluxo_etapa->route)); 
-                        }
-                        if(class_exists(sprintf("%s\ShowComponent", $fluxo->component))){
-                            Route::get(sprintf("%s/{path}/{model}/vizualizr",$fluxo_etapa->route ),sprintf("%s\ShowComponent", $fluxo->component))->name(sprintf("admin.%s.processo.%s.view", $fluxo->route,$fluxo_etapa->route)); 
-                        }
+            Route::prefix($fluxo->slug)->group(function () use($fluxo) {                           
+                    if($fluxo_etapas = $fluxo->fluxo_etapas){
+                           foreach($fluxo_etapas as $fluxo_etapa){
+                                    if(class_exists(sprintf("%s\ListComponent", $fluxo->component))){
+                                        // dd(sprintf("admin.%s.processo.%s",$fluxo->id,$fluxo_etapa->id));
+                                        Route::get("{etapa}",sprintf("%s\ListComponent", $fluxo->component))->name(sprintf("admin.%s.processo", $fluxo->id)); 
+                                    }
+                                    if(class_exists(sprintf("%s\CreateComponent", $fluxo->component))){
+                                        Route::get('{etapa}/cadastrar',sprintf("%s\CreateComponent", $fluxo->component))->name(sprintf("admin.%s.processo.create",$fluxo->id));    
+                                    }
+                                    if(class_exists(sprintf("%s\EditComponent", $fluxo->component))){
+                                        Route::get('{etapa}/{model}/editar',sprintf("%s\EditComponent", $fluxo->component))->name(sprintf("admin.%s.processo.edit",$fluxo->id)); 
+                                    }
+                                    if(class_exists(sprintf("%s\ShowComponent", $fluxo->component))){
+                                        Route::get("{etapa}/{model}/visualizar",sprintf("%s\ShowComponent", $fluxo->component))->name(sprintf("admin.%s.processo.view",$fluxo->id)); 
+                                    }
+                                }
+                            }
+                       });
                        
-                    }
-                }
            }); 
     }
 }

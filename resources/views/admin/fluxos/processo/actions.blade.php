@@ -1,7 +1,7 @@
 <div class="flex item-center justify-center">
     @if (\Route::has($this->show))
         @can($this->show)
-            <a href="{{ route($this->show, compact('model', 'path')) }}"
+            <a href="{{ route($this->show, compact('etapa','model')) }}"
                 class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -14,7 +14,7 @@
     @endif
     @if (\Route::has($this->edit))
         @can($this->edit)
-            <a href="{{ route($this->edit, compact('model', 'path')) }}"
+            <a href="{{ route($this->edit, compact('etapa','model')) }}"
                 class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -25,7 +25,7 @@
     @endif
     @if (\Route::has($this->delete))
         @can($this->delete)
-            <a href="{{ route($this->delete, compact('model', 'path')) }}"
+            <a href="{{ route($this->delete, compact('etapa','model')) }}"
                 class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

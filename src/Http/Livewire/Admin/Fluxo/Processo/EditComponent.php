@@ -18,22 +18,21 @@ class EditComponent extends FormComponent
     use AuthorizesRequests;
 
     public $title = "Editar";
-    public $path;
+    public $etapa;
 
-    public function mount($path, FluxoEtapaProduto $model)
+    public function mount(FluxoEtapa $etapa, FluxoEtapaProduto $model)
     {
         $this->authorize(Route::currentRouteName());
-        $this->path = $path;
-        $this->setFormProperties($model, FluxoEtapa::query()->where('path', $path)->first());
+        $this->setFormProperties($model, $etapa);
     }
 
      /**
      * @param null $model
      */
-    public function setFormProperties($model = null, $config=null)
+    public function setFormProperties($model = null, $etapa=null)
     {
         $this->model = $model;
-        $this->config = $config;
+        $this->etapa = $etapa;
         if ($model) {
             $this->data = data_get($model, 'produtos');
         }
@@ -67,15 +66,15 @@ class EditComponent extends FormComponent
     
     public function getListProperty()
     {
-        return sprintf('admin.%s.processo.%s', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
+        return sprintf('admin.%s.processo', data_get($this->etapa, 'fluxo.id', 'fluxos'));
     }
 
     public function getFluxoEtapaItemsProperty()
     {
-       return  $this->config->fluxo_etapa_items;
+       return  $this->etapa->fluxo_etapa_items;
     }
     public function view()
     {
-        return sprintf('tall::admin.%s.processo.edit', data_get($this->config, 'fluxo.route', 'fluxos'));
+        return sprintf('tall::admin.%s.processo.edit', data_get($this->etapa, 'fluxo.route', 'fluxos'));
     }
 }

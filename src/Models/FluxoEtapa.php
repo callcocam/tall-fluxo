@@ -17,6 +17,7 @@ class FluxoEtapa extends AbstractModel
 
     protected $guarded = ['id'];
     protected $with = ['fluxo_etapa_items','fluxo'];
+    protected $appends = ['etapa_items'];
 
      /**
      * The attributes that should be cast.
@@ -39,5 +40,20 @@ class FluxoEtapa extends AbstractModel
     public function fluxo_etapa_items()
     {
         return $this->hasMany(FluxoEtapaItem::class)->orderBy('ordering');
+    }
+    
+    public function produtos()
+    {
+        return $this->hasMany(FluxoEtapaProduto::class)->orderBy('ordering');
+    }
+    
+    public function getEtapaItemsAttribute()
+    {
+        return $this->fluxo->fluxo_etapas()->pluck('id','id');
+    }
+    
+    public function getTotalAttribute()
+    {
+        return $this->produtos->count();
     }
 }

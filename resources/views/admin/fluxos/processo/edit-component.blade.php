@@ -1,5 +1,5 @@
 <x-slot name="header">
-    <x-tall-table.breadcrumbs url="{{ route($this->list, $path) }}" label="{{ __('Fluxo') }}" />
+    <x-tall-table.breadcrumbs url="{{ route($this->list, $etapa) }}" label="{{ __('Fluxo') }}" />
     <x-tall-table.breadcrumbs url="#" label="{{ $title }}" />
 </x-slot>
 <div class="w-full">
@@ -19,7 +19,7 @@
                             @endif
                             <div class="bg-white px-4 py-5 flex justify-between sm:px-6">
                                 @if ($list = $this->list)
-                                    <x-button red squared href="{{ route($this->list, $path) }}" icon="arrow-narrow-left"
+                                    <x-button red squared href="{{ route($this->list, $etapa) }}" icon="arrow-narrow-left"
                                         label="{{ __('Voltar para a lista') }}" primary />
                                 @endif
                                 <x-button icon="save" indigo squared type="submit"

@@ -9,39 +9,40 @@ namespace Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Tall\Fluxo\Models\FluxoEtapa;
-use Tall\Fluxo\Models\FluxoEtapaProduto;
 use Tall\Http\Livewire\TableComponent;
 class ListComponent extends TableComponent
 {
     use AuthorizesRequests;
    
     public $path;
-    public $config;
+    public $etapa;
+    public $currentRouteName;
 
-    public function mount($path)
+    public function mount(FluxoEtapa $etapa)
     {
         $this->authorize(Route::currentRouteName());
-        $this->path = $path;
-        $this->setFormProperties(FluxoEtapa::query()->where('path', $this->path)->first());
+
+        $this->setFormProperties($etapa, Route::currentRouteName());
     }
 
 
       /**
-     * @param null $config
+     * @param null $etapa
      */
-    public function setFormProperties($config = null)
+    public function setFormProperties($etapa = null, $currentRouteName =null)
     {
-        if(!$config){
+        if(!$etapa){
             abort(404);
         }
-        $this->config = $config;
-        // dd($this->config->toArray());
+        $this->etapa = $etapa;
+        $this->currentRouteName = $currentRouteName;
+        //  dd($this->etapa->toArray());
        
     }
 
     public function query()
     {
-          $builder = FluxoEtapaProduto::query();
+          $builder = $this->etapa->produtos();
         // if($role = data_get($this->filters, 'role')){
         //     $builder->whereHas('roles', function ($builder) use ($role) {
         //         $builder->where('id', $role);
@@ -52,26 +53,31 @@ class ListComponent extends TableComponent
 
     public function getListProperty()
     {
-        return sprintf('admin.%s.processo.%s', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
+        return $this->currentRouteName;
     }
 
     public function getCreateProperty()
     {
-        return sprintf('admin.%s.processo.%s.create', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
+        // return sprintf('%s.create', $this->currentRouteName);
+    }
+
+    public function getEditProperty()
+    {
+        return sprintf('%s.edit',$this->currentRouteName);
     }
 
     public function getShowProperty()
     {
-       return sprintf('admin.%s.processo.%s.view', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
+       return sprintf('%s.view',$this->currentRouteName);
     }
-    public function getEditProperty()
-    {
-       return sprintf('admin.%s.processo.%s.edit', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
-    }
-    
+
     public function getDeleteProperty()
     {
-       return sprintf('admin.%s.processo.%s.delete', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
+        return sprintf('%s.delete',$this->currentRouteName);
+    }
+    public function loadData(FluxoEtapa $etapa)
+    {
+        $this->etapa = $etapa;
     }
 
     public function getOrderProperty()
@@ -80,7 +86,7 @@ class ListComponent extends TableComponent
     }
     public function view()
     {
-        return sprintf('tall::admin.%s.processo.list', data_get($this->config, 'fluxo.route', 'fluxos'));
+        return sprintf('tall::admin.%s.processo.list', data_get($this->etapa->fluxo, 'fluxo', 'fluxos'));
     }
 
 }
