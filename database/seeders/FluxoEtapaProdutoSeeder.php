@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\FluxoEtapa;
-use App\Models\FluxoEtapaProduto;
-use App\Models\FluxoEtapaProdutoItem;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Tall\Fluxo\Models\FluxoEtapa;
+use Tall\Fluxo\Models\FluxoEtapaProduto;
+use Tall\Fluxo\Models\FluxoEtapaProdutoItem;
 
 class FluxoEtapaProdutoSeeder extends Seeder
 {
@@ -27,7 +27,6 @@ class FluxoEtapaProdutoSeeder extends Seeder
             ])->each(function($mode) use($etapa){
                 $fluxo_etapa_items = $etapa->fluxo_etapa_items;
                 foreach($fluxo_etapa_items as $fluxo_etapa_item){
-                    // dd($fluxo_etapa_item->toArray());
                     $mode->fluxo_etapa_produto_items()->create(FluxoEtapaProdutoItem::factory()->make([
                         'fluxo_field_id'=>$fluxo_etapa_item->fluxo_field_id
                     ])->toArray());
