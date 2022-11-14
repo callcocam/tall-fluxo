@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Tall\Fluxo\Models\FluxoEtapa;
@@ -22,7 +23,7 @@ class FluxoEtapaProdutoSeeder extends Seeder
         FluxoEtapaProdutoItem::query()->forceDelete();
         FluxoEtapaProduto::query()->forceDelete();
         foreach($etapas as $etapa){
-            FluxoEtapaProduto::factory(rand(50, 500))->create([
+            FluxoEtapaProduto::factory(rand(2, 5))->create([
                 'fluxo_id'=>$etapa->fluxo_id
             ])->each(function($mode) use($etapa){
                 $fluxo_etapa_items = $etapa->fluxo_etapa_items;

@@ -79,7 +79,8 @@ class FluxoEtapaItem extends AbstractModel
                     $attributes['wire:model'] = sprintf('data.%s', $fluxo_field->id);
                     break;
             }
-           
+            
+            $attributes['type'] = $this->type;
             return  $attributes;
         }
         return [
