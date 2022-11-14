@@ -23,6 +23,7 @@ class FluxoFieldSeeder extends Seeder
             [
                 'name'=>"Nome do produto",
                 'view'=>'input',
+                'type'=>'text',
 
             ]
         )->each(function($model){
@@ -44,6 +45,7 @@ class FluxoFieldSeeder extends Seeder
             [
                 'name'=>"Descrição comercial",
                 'view'=>'textarea',
+                'type'=>'textarea',
 
             ]
         )->each(function($model){
@@ -66,6 +68,7 @@ class FluxoFieldSeeder extends Seeder
             [
                 'name'=>"É App",
                 'view'=>'radio',
+                'type'=>'radio',
 
             ]
         )->each(function($model){
@@ -94,6 +97,7 @@ class FluxoFieldSeeder extends Seeder
             [
                 'name'=>"Data de cencimento",
                 'view'=>'date',
+                'type'=>'date',
 
             ]
         )->each(function($model){
@@ -109,6 +113,7 @@ class FluxoFieldSeeder extends Seeder
             [
                 'name'=>"Data de cencimento",
                 'view'=>'date-time',
+                'type'=>'date-time-local',
 
             ]
         )->each(function($model){
@@ -126,6 +131,7 @@ class FluxoFieldSeeder extends Seeder
             [
                 'name'=>"Categoria",
                 'view'=>'select',
+                'type'=>'select',
 
             ]
         )->each(function($model){
@@ -133,7 +139,7 @@ class FluxoFieldSeeder extends Seeder
             $model->fluxo_field_attributes()
             ->create(array_filter(FluxoFieldAttribute::factory()->make([
                     'name'=>'class',
-                    'description'=>'h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500',
+                    'description'=>'w-full rounded border-gray-300 text-indigo-600 focus:ring-indigo-500',
                 ])->toArray()));
 
             $model->fluxo_field_db()

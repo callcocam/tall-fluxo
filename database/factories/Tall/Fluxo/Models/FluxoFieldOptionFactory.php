@@ -2,6 +2,8 @@
 
 namespace Database\Factories\Tall\Fluxo\Models;
 
+use App\Models\FluxoFieldDb;
+use App\Models\FluxoFieldOption;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class FluxoFieldOptionFactory extends Factory
 {
+    protected  $model = FluxoFieldOption::class;
     /**
      * Define the model's default state.
      *

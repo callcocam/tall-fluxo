@@ -29,7 +29,7 @@ class FluxoEtapaProdutoSeeder extends Seeder
                 $fluxo_etapa_items = $etapa->fluxo_etapa_items;
                 foreach($fluxo_etapa_items as $fluxo_etapa_item){
                     $mode->fluxo_etapa_produto_items()->create(FluxoEtapaProdutoItem::factory()->make([
-                        'fluxo_field_id'=>$fluxo_etapa_item->fluxo_field_id
+                        'fluxo_field_id'=>$fluxo_etapa_item->fluxo_field_id,
                     ])->toArray());
                 }
             });

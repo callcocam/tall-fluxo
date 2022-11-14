@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Tall\Fluxo\Models;
 
+use App\Models\Fluxo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class FluxoFactory extends Factory
 {
+    protected  $model= Fluxo::class;
     /**
      * Define the model's default state.
      *

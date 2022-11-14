@@ -2,16 +2,18 @@
 
 namespace Database\Factories\Tall\Fluxo\Models;
 
+use App\Models\FluxoEtapaProdutoItem;
 use App\Models\Tenant;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FluxoEtapaProdutoItem>
  */
 class FluxoEtapaProdutoItemFactory extends Factory
 {
+    protected  $model = FluxoEtapaProdutoItem::class;
     /**
      * Define the model's default state.
      *
