@@ -45,9 +45,9 @@ class TallFluxoServiceProvider extends ServiceProvider
         $this->publishViews();
         
         // $this->configureDynamicComponent(dirname(__DIR__,2));
-        if(is_dir(resource_path('views/vendor/tall/components')))
+        if(is_dir(resource_path('views/vendor/tall-fluxo/components')))
         {
-            $this->configureDynamicComponent(resource_path('views/vendor/tall/components'));
+            $this->configureDynamicComponent(resource_path('views/vendor/tall-fluxo/components'));
         }
         else{
             $this->configureDynamicComponent(sprintf("%s/resources/views/components", dirname(__DIR__,2)));
