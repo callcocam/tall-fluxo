@@ -18,37 +18,43 @@ class CreateComponent extends FormComponent
     use AuthorizesRequests;
 
     public $title = "Cadastrar";
-    public $path;
+    public $etapa;
 
-    public function mount($path, FluxoEtapaProduto $model)
+    public function mount(FluxoEtapa $etapa, FluxoEtapaProduto $model)
     {
         $this->authorize(Route::currentRouteName());
-        $this->path = $path;
+        $this->setFormProperties($model, $etapa);
 
-        $this->setFormProperties($model, FluxoEtapa::query()->where('path', $path)->first());
-       unset($this->data['produtos']);
     }
+
+    
+     /**
+     * @param null $model
+     */
+    public function setFormProperties($model = null, $etapa=null)
+    {
+        $this->model = $model;
+        $this->etapa = $etapa;
+        if ($model) {
+            $this->data = data_get($model, 'produtos');
+        }
+    }
+
     protected function save(){
         try {
-            $this->model = $this->model->create([
-                'fluxo_id'=>data_get($this->config,'fluxo.id')
-            ]);
-            if ($this->model->exists) {
+            if($model =  $this->etapa->produtos()->create([
+                'fluxo_id'=>$this->etapa->fluxo_id
+            ])){
+                $this->model  = $model;
                 foreach($this->data as $fluxo_field_id => $name){
-                    $this->model->fluxo_etapa_produto_items()->create(
-                        [
-                            "fluxo_field_id"=>$fluxo_field_id,
-                            "name"=>$name
-                        ]
-                    );
+                    $data['name']=$name;
+                    $data['fluxo_field_id']=$fluxo_field_id;
+                    $this->model->fluxo_etapa_produto_items()->create($data);
                 }
                 $this->success( __('sucesso'), __("Cadastro atualizado com sucesso!!"));
-                $params=[];
-                $params['path'] = $this->config->path;
-                $params['model'] = $this->model;
-                return redirect()->route(sprintf('admin.%s.processo.%s.edit', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route),$params);
+                return true;
             }
-            return false;
+          
         } catch (\PDOException $PDOException) {
             $this->error('erro', __($PDOException->getMessage()));
             return false;
@@ -63,26 +69,7 @@ class CreateComponent extends FormComponent
     
     public function getListProperty()
     {
-        return sprintf('admin.%s.processo.%s', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
-    }
-
-    public function getCreateProperty()
-    {
-        return sprintf('admin.%s.processo.%s.create', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
-    }
-
-    public function getShowProperty()
-    {
-       return sprintf('admin.%s.processo.%s.view', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
-    }
-    public function getEditProperty()
-    {
-       return sprintf('admin.%s.processo.%s.edit', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
-    }
-    
-    public function getDeleteProperty()
-    {
-       return sprintf('admin.%s.processo.%s.delete', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
+        return sprintf('admin.%s.processo', data_get($this->etapa, 'fluxo.id', 'fluxos'));
     }
 
     public function getOrderProperty()
@@ -92,7 +79,7 @@ class CreateComponent extends FormComponent
 
     public function getFluxoEtapaItemsProperty()
     {
-       return  $this->config->fluxo_etapa_items;
+       return  $this->etapa->fluxo_etapa_items;
     }
     public function view()
     {
