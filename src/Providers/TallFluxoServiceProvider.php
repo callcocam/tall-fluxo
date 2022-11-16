@@ -163,7 +163,7 @@ class TallFluxoServiceProvider extends ServiceProvider
         {
             $pathViews = resource_path('views/vendor/tall-fluxo');
             $this->loadViewsFrom($pathViews, 'tall');
-            Blade::anonymousComponentNamespace(resource_path('views/vendor/tall/components'), 'tall');
+            Blade::anonymousComponentNamespace(resource_path('views/vendor/tall-fluxo/components'), 'tall');
         }
 
         $this->publishes([         
