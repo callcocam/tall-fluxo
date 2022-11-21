@@ -17,6 +17,7 @@ class EditComponent extends FormComponent
     use AuthorizesRequests;
 
     public $title = "Editar";
+    public $currentRouteName;
 
     public function mount(FluxoField $model)
     {
@@ -36,9 +37,13 @@ class EditComponent extends FormComponent
     }
 
     protected function fields(){
+        $types = config('tall-fluxo.views.form',[]);
+        $views = array_merge(config('tall-fluxo.views.db',[]), $types);
         return [
+            'type'=> \Tall\View\Components\Form\Radio::make('Selecione um tipo', 'type')
+            ->array(array_combine($types, $types))->order(2),
             'view'=> \Tall\View\Components\Form\Radio::make('Selecione uma vizualização', 'view')
-            ->array(array_combine(config('tall-fluxo.views.form',[]),config('tall-fluxo.views.form',[])))->order(2)
+            ->array(array_combine($views, $views))->order(2)
         ];
     }
 

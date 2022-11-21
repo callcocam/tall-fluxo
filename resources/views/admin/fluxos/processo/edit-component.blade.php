@@ -58,14 +58,16 @@
                         <div class="grid grid-cols-12 gap-x-4 gap-y-2 p-5">
                             @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
                                 @foreach ($fluxo_etapa_items as $field)
-                                    @if ($fluxo_field = $field->fluxo_field)
-                                        <x-dynamic-component
-                                            component="{{ sprintf('tall-form.views.%s', data_get($fluxo_field, 'view', 'text')) }}"
-                                            :field="$field" />
-                                    @else
-                                        <x-dynamic-component
-                                            component="{{ sprintf('tall-form.views.%s', data_get($field, 'view', 'text')) }}"
-                                            :field="$field" />
+                                    @if ($field->visible)
+                                        @if ($fluxo_field = $field->fluxo_field)
+                                            <x-dynamic-component
+                                                component="{{ sprintf('tall-form.views.%s', data_get($fluxo_field, 'view', 'text')) }}"
+                                                :field="$field" />
+                                        @else
+                                            <x-dynamic-component
+                                                component="{{ sprintf('tall-form.views.%s', data_get($field, 'view', 'text')) }}"
+                                                :field="$field" />
+                                        @endif
                                     @endif
                                 @endforeach
                             @endif

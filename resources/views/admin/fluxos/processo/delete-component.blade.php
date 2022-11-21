@@ -16,9 +16,9 @@
                                     será excluída em {{ $confirm }}, todos os recursos e dados
                                     serão excluídos.
                                 </h3>
-                                <p wire:poll.1000ms="redirectList"
+                                <p wire:poll.1000ms="kill('{{route($this->list, $etapa) }}')"
                                     class="mt-1 max-w-2xl text-sm text-gray-800 font-bold">
-                                    <x-button squared indigo wire:click="kill('{{ $this->list }}')"
+                                    <x-button squared indigo wire:click="kill('{{route($this->list, $etapa) }}')"
                                         label="{{ sprintf('Confirmar e Voltar para a lista em %s ...', $confirm) }}" />
                                 </p>
                             </div>

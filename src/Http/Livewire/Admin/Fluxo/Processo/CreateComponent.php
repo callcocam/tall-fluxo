@@ -8,6 +8,7 @@
 namespace Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Tall\Fluxo\Core\Fields\Field;
 use Tall\Http\Livewire\FormComponent;
@@ -20,10 +21,15 @@ class CreateComponent extends FormComponent
 
     public $title = "Cadastrar";
     public $etapa;
+    public $products=[];
+    public $currentRouteName;
 
     public function mount(FluxoEtapa $etapa, FluxoEtapaProduto $model)
     {
-        $this->authorize(Route::currentRouteName());
+        $this->currentRouteName = Route::currentRouteName();
+
+        $this->authorize($this->currentRouteName);
+
         $this->setFormProperties($model, $etapa);
 
     }
@@ -38,21 +44,39 @@ class CreateComponent extends FormComponent
         $this->etapa = $etapa;
         if ($model) {
             $this->data = data_get($model, 'produtos');
+            
+            $products = config('tall-fluxo.fildes.before',[]);
+            if($products){
+
+                foreach($products as $product){
+                   
+                    $this->products[] = $product->name;
+                    
+                    data_set($this->data, $product->name, "");
+
+                }
+            }
+            data_set($this->data, 'fluxo_etapa_id', data_get($etapa, 'id'));
         }
     }
 
     protected function save(){
         try {
-            if($model =  $this->etapa->produtos()->create([
-                'fluxo_id'=>$this->etapa->fluxo_id
-            ])){
+            $products = $this->data->only(array_merge(['fluxo_etapa_id'], $this->products))->toArray();
+            
+            if($model =  $this->etapa->produtos()->create($products)){
                 $this->model  = $model;
-                foreach($this->data as $fluxo_field_id => $name){
+                foreach($this->data->except(array_merge(['fluxo_etapa_id'], $this->products)) as $fluxo_field_id => $name){
                     $data['name']=$name;
                     $data['fluxo_field_id']=$fluxo_field_id;
                     $this->model->fluxo_etapa_produto_items()->create($data);
                 }
                 $this->success( __('sucesso'), __("Cadastro atualizado com sucesso!!"));
+                $currentRouteNameEdit  = Str::replace("create",'edit', $this->currentRouteName);
+                $etapa = $this->etapa;
+                if(Route::has($currentRouteNameEdit)){
+                    redirect()->route($currentRouteNameEdit , compact('etapa','model'));
+                }
                 return true;
             }
           

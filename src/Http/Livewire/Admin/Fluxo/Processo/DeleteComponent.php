@@ -46,7 +46,19 @@ class DeleteComponent extends AbstractDeleteComponent
 
             return;
         }
-        return $this->kill(sprintf('admin.%s.processo', data_get($this->etapa, 'fluxo.id', 'fluxos')));
+        return $this->kill(sprintf('admin.%s.processo', data_get($this->etapa, 'fluxo.id', 'fluxos')),[
+            'etapa'=>$this->etapa
+        ]);
+    }
+
+    public function kill($route=null, $params=[])
+    {
+        
+        $this->model->fluxo_etapa_produto_items()->forceDelete();
+        if($this->model->forceDelete()){  
+            $this->confirm = 0;
+            return redirect($route);
+        }
     }
 
     public function getListProperty()

@@ -43,13 +43,6 @@ return [
     ],
     'views'=>[
         'form'=>[
-            'db',
-            'db-radio',
-            'db-checkbox',
-            'db-select',
-            'db-range',
-            'db-number',
-            'input',
             'text',
             'radio',
             'checkbox',
@@ -63,6 +56,7 @@ return [
             'textarea'
         ],
         'db'=>[
+            'db',
             'db-radio',
             'db-checkbox',
             'db-select',
