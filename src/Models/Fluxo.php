@@ -17,6 +17,7 @@ class Fluxo extends AbstractModel
     protected $guarded = ['id'];
 
     // protected $with = ['fluxo_etapas', 'fluxo_etapa_produtos','fluxo_fields'];
+    protected $appends = ['fields'];
 
      /**
      * The attributes that should be cast.
@@ -32,9 +33,14 @@ class Fluxo extends AbstractModel
 
     protected $table = "fluxos";
 
+    public function getFieldsAttribute()
+    {
+        return $this->belongsToMany(FluxoField::class)->pluck('id','id')->toArray();
+    }
+
     public function fluxo_fields()
     {
-        return $this->hasMany(FluxoField::class)->orderBy('ordering');
+        return $this->belongsToMany(FluxoField::class);
     }
 
     public function fluxo_etapas()

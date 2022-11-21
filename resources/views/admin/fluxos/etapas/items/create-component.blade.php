@@ -1,8 +1,8 @@
 <div class="w-full px-5">
-    <div x-data="{ expanded: false }">
+    <div x-data="{ expanded: true }">
         <fieldset class="bg-white shadow-md p-2 rounded rounded-lg border">
             <legend>Cadastrar Items para - <b>{{ $model->name }}</b></legend>
-            <form wire:submit.prevent="submit" class="flex items-center p-3 w-full space-x-2">
+            {{-- <form wire:submit.prevent="submit" class="flex items-center p-3 w-full space-x-2">
                 <div class=" w-full">
                     <div class="mt-1">
                         <input title="Nome da item" type="text" wire:model.lazy='data.fluxo_etapa_items.name'
@@ -88,15 +88,15 @@
                         </button>
                     @endif
                 </div>
-            </form>
-            <div x-show="expanded" x-collapse>
+            </form> --}}
+            <div>
                 @if ($fluxo_etapa_items = $model->fluxo_etapa_items)
                     @foreach ($fluxo_etapa_items as $fluxo_etapa_items)
-                        <x-tall-sortable>
+                        <x-tall-sortable-fluxo>
                             <div class="w-full sortable" data-id="{{ $fluxo_etapa_items->id }}">
                                 @livewire('tall::admin.fluxo.etapas.items.edit-component', ['model' => $fluxo_etapa_items], key(uniqId($fluxo_etapa_items->id)))
                             </div>
-                        </x-tall-sortable>
+                        </x-tall-sortable-fluxo>
                     @endforeach
                 @endif
             </div>

@@ -1,45 +1,7 @@
 <div class="w-full">
     <div class="bg-white px-5 rounded">
         <form wire:submit.prevent="submit" class="flex items-center p-3 border rounded-md w-full space-x-2">
-            <div class=" w-full">
-                <div class="mt-1">
-                    <input title="Nome ou Rotulo para item" type="text" wire:model.lazy='data.name'
-                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                        placeholder="Nome ou Rotulo para item">
-                </div>
-            </div>
-            <div class=" w-full">
-                <div class="mt-1">
-                    <select title="Tipo do item" wire:model.lazy='data.type'
-                        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                        @if ($form_field_types = $this->form_field_types)
-                            @foreach ($form_field_types as $key => $value)
-                                <option value="{{ $key }}">{{ $value }}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                </div>
-            </div>
-            <div class="w-full">
-                <div class="mt-1">
-                    <select title="Evento" wire:model.lazy='data.evento'
-                        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                        @foreach (['model', 'lazy', 'defer'] as $value)
-                            <option value="{{ $value }}">{{ $value }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="w-full">
-                <div class="mt-1">
-                    <select title="Tamanho" wire:model.lazy='data.width'
-                        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                        @foreach ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as $key => $value)
-                            <option value="{{ $value }}">{{ $value }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
+            
             <div class="w-full">
                 <div class="mt-1">
                     <select wire:model.lazy='data.fluxo_field_id'
@@ -50,6 +12,45 @@
                                 <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
                         @endif
+                    </select>
+                </div>
+            </div>
+            <div class=" w-full">
+                <div class="mt-1">
+                    <input title="Nome ou Rotulo para item" type="text" wire:model.lazy='data.name'
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        placeholder="Nome ou Rotulo para item">
+                </div>
+            </div>
+            {{-- <div class=" w-full">
+                <div class="mt-1">
+                    <select title="Tipo do item" wire:model.lazy='data.type'
+                        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                        @if ($form_field_types = $this->form_field_types)
+                            @foreach ($form_field_types as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+            </div> --}}
+            {{-- <div class="w-full">
+                <div class="mt-1">
+                    <select title="Evento" wire:model.lazy='data.evento'
+                        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                        @foreach (['model', 'lazy', 'defer'] as $value)
+                            <option value="{{ $value }}">{{ $value }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div> --}}
+            <div class="w-full">
+                <div class="mt-1">
+                    <select title="Tamanho" wire:model.lazy='data.width'
+                        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                        @foreach ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as $key => $value)
+                            <option value="{{ $value }}">{{ $value }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>

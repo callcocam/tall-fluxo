@@ -39,6 +39,7 @@
                 <a target="__blank" href="{{ route(sprintf("admin.%s.processo", $model->fluxo->id), $model) }}">
                     <x-tall-icon name="eye" class="h-6 w-6" />
                 </a>
+                <x-tall-icon name="arrows-expand" class="h-6 w-6 draggable-handler cursor-move" />
             </div>
         </form>
         @livewire('tall::admin.fluxo.etapas.items.create-component', ['model' => $model], key(uniqId($model->id)))

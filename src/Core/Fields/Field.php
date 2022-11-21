@@ -87,4 +87,12 @@ class Field
     {
         return $this->{$name};
     }
+
+    
+    public function __set($name, $value)
+    {
+        $this->{$name} = $value;
+
+        return $this;
+    }
 }

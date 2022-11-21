@@ -18,6 +18,12 @@ class EditComponent extends FormComponent
 
     public $title = "Editar";
 
+       
+    /**
+     * @var string[]
+     */
+    protected $listeners = ['refresh'=>'$refresh'];
+
     public function mount(FluxoEtapaItem $model)
     {
         $this->setFormProperties($model);
