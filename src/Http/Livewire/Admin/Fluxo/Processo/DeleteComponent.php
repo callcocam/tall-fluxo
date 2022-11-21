@@ -18,12 +18,24 @@ class DeleteComponent extends AbstractDeleteComponent
     use AuthorizesRequests;
 
     public $title = "Excluir";
+    public $etapa;
 
-    public function mount($path, FluxoEtapaProduto $model)
+    public function mount(FluxoEtapa $etapa, FluxoEtapaProduto $model)
     {
         $this->authorize(Route::currentRouteName());
-        $this->path = $path;
-        $this->setFormProperties($model, FluxoEtapa::query()->where('path', $path)->first());
+        $this->setFormProperties($model, $etapa);
+    }
+
+     /**
+     * @param null $model
+     */
+    public function setFormProperties($model = null, $etapa=null)
+    {
+        $this->model = $model;
+        $this->etapa = $etapa;
+        if ($model) {
+            $this->data = data_get($model, 'produtos');
+        }
     }
 
     public function redirectList()
@@ -34,17 +46,17 @@ class DeleteComponent extends AbstractDeleteComponent
 
             return;
         }
-        return $this->kill(sprintf('admin.%s.processo.%s', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route));
+        return $this->kill(sprintf('admin.%s.processo', data_get($this->etapa, 'fluxo.id', 'fluxos')));
     }
 
     public function getListProperty()
     {
-        return sprintf('admin.%s.processo.%s', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route);
+        return sprintf('admin.%s.processo', data_get($this->etapa, 'fluxo.id', 'fluxos'));
     }
 
     public function cancel()
     {
-        return redirect()->route(sprintf('admin.%s.processo.%s', data_get($this->config, 'fluxo.route', 'fluxos'),$this->config->route));
+        return sprintf('admin.%s.processo', data_get($this->etapa, 'fluxo.id', 'fluxos'));
     }
 
     public function view()

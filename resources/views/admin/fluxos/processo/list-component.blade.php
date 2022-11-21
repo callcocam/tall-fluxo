@@ -18,7 +18,7 @@
                             <x-tall-table.filters.clear :filters="$filters" />
                             <x-tall-table.search />
                             @if (\Route::has($this->create))
-                                <x-tall-table.add href="{{ route($this->create, $path) }}">
+                                <x-tall-table.add href="{{ route($this->create, $etapa) }}">
                                     {{ __('Adicionar') }}
                                 </x-tall-table.add>
                             @endif
@@ -28,52 +28,6 @@
 
                         </div>
                     </div>
-                    @if ($fluxos = \Tall\Fluxo\Models\Fluxo::query()->whereStatus('published')->get())
-                        @foreach ($fluxos as $fluxo)
-                            @if ($fluxo_etapas = $fluxo->fluxo_etapas)
-                                <div class="p-2">
-                                    <div class="sm:hidden">
-                                        <label for="tabs" class="sr-only">Select a tab</label>
-                                        <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
-                                        <select id="tabs" name="tabs"
-                                            class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                            @foreach ($fluxo_etapas as $fluxo_etapa)
-                                                @can(sprintf('admin.%s.processo', $fluxo->id))
-                                                    <option
-                                                        data-href="{{ route(sprintf('admin.%s.processo', $fluxo->id), ['etapa' => $fluxo_etapa]) }}">
-                                                        <span class="uppercase">
-                                                            {{ $fluxo_etapa->name }}
-                                                        </span></option>
-                                                @endcan
-                                            @endforeach
-
-                                        </select>
-                                    </div>
-                                    <div class="hidden sm:block">
-                                        <div class="border-b border-gray-200">
-                                            <nav class="-mb-px flex space-x-8 justify-between" aria-label="Tabs">
-                                               @foreach ($fluxo_etapas as $fluxo_etapa)
-                                                    @can(sprintf('admin.%s.processo', $fluxo->id))
-                                                        <a href="{{ route(sprintf('admin.%s.processo', $fluxo->id), ['etapa' => $fluxo_etapa]) }}"
-                                                            @if ($fluxo_etapa->id == $etapa->id) class="border-indigo-500 text-indigo-600 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm"    
-                                                        @else
-                                                        class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm"> 
-                                                        @endif
-                                                            <span class="uppercase">
-                                                            {{ $fluxo_etapa->name }}
-                                                            </span>
-                                                            <span
-                                                                class="bg-gray-100 text-gray-900 hidden ml-3 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">{{ $fluxo_etapa->total }}</span>
-                                                        </a>
-                                                    @endcan
-                                                @endforeach
-                                            </nav>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    @endif
 
                     <table class="w-full table-auto">
                         <thead class="shadow-md rounded-t-sm">
@@ -98,45 +52,17 @@
                         @if ($models->count())
                             <tbody class="text-gray-600 text-sm font-light">
                                 @foreach ($models as $model)
-                                    @if ($produtos = data_get($model, 'produtos'))
-                                        <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                            @if ($fluxo_etapa_items = data_get($etapa, 'fluxo_etapa_items'))
-                                                @foreach ($fluxo_etapa_items as $fluxo_etapa_item)
-                                                    @if (data_get($fluxo_etapa_item, 'visible'))
-                                                        @if ($name = data_get($fluxo_etapa_item, 'fluxo_field_id'))
-                                                            <td class="py-3 px-6 text-left">
-                                                                @if (data_get($fluxo_etapa_item, 'visible'))
-                                                                    @if ($name = data_get($fluxo_etapa_item, 'fluxo_field_id'))
-                                                                        @if (data_get($fluxo_etapa_item, 'fluxo_field.fluxo_field_db.model'))
-                                                                            {{ data_get($fluxo_etapa_item, 'fluxo_field.fluxo_field_db.model') }}
-                                                                        @elseif ($fluxo_field_options = data_get($fluxo_etapa_item, 'fluxo_field.fluxo_field_options'))
-                                                                            @if ($fluxo_field_options->count())
-                                                                                @if ($option = data_get($produtos, $name))
-                                                                                    @foreach ($fluxo_field_options as $value)
-                                                                                        @if ($option == data_get($value, 'id'))
-                                                                                            {{ data_get($value, 'name') }}
-                                                                                            {{ data_get($value, 'description') }}
-                                                                                        @endif
-                                                                                    @endforeach
-                                                                                @endif
-                                                                            @else
-                                                                                {{ data_get($produtos, $name) }}
-                                                                            @endif
-                                                                        @else
-                                                                            {{ data_get($produtos, $name) }}
-                                                                        @endif
-                                                                    @endif
-                                                                @endif
-                                                            </td>
-                                                        @endif
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                            <td class="py-3 px-6 text-left">
-                                                @include('tall::admin.fluxos.processo.actions')
-                                            </td>
-                                        </tr>
-                                    @endif
+                                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                        <td class="py-3 px-6 text-left">
+                                            {{ $model->nome_produto}}
+                                        </td>   
+                                        <td class="py-3 px-6 text-left">
+                                            {{ $model->cod_barras}}
+                                        </td>
+                                        <td class="py-3 px-6 text-left">
+                                            @include('tall::admin.fluxos.processo.actions')
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>

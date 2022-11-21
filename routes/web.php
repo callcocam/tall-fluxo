@@ -64,6 +64,9 @@ if($fluxos){
                                     if(class_exists(sprintf("%s\ShowComponent", $fluxo->component))){
                                         Route::get("{etapa}/{model}/visualizar",sprintf("%s\ShowComponent", $fluxo->component))->name(sprintf("admin.%s.processo.view",$fluxo->id)); 
                                     }
+                                    if(class_exists(sprintf("%s\DeleteComponent", $fluxo->component))){
+                                        Route::get("{etapa}/{model}/delete",sprintf("%s\DeleteComponent", $fluxo->component))->name(sprintf("admin.%s.processo.delete",$fluxo->id)); 
+                                    }
                                 }
                             }
                        });

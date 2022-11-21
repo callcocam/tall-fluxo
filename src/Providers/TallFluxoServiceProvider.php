@@ -162,7 +162,7 @@ class TallFluxoServiceProvider extends ServiceProvider
         if(is_dir(resource_path('views/vendor/tall-fluxo')))
         {
             $pathViews = resource_path('views/vendor/tall-fluxo');
-            $this->loadViewsFrom($pathViews, 'tall');
+            $this->loadViewsFrom($pathViews, 'tall-fluxo');
             Blade::anonymousComponentNamespace(resource_path('views/vendor/tall-fluxo/components'), 'tall');
         }
 

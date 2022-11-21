@@ -58,7 +58,7 @@ class ListComponent extends TableComponent
 
     public function getCreateProperty()
     {
-        // return sprintf('%s.create', $this->currentRouteName);
+        return sprintf('%s.create', $this->currentRouteName);
     }
 
     public function getEditProperty()
@@ -68,7 +68,7 @@ class ListComponent extends TableComponent
 
     public function getShowProperty()
     {
-       return sprintf('%s.view',$this->currentRouteName);
+    //    return sprintf('%s.view',$this->currentRouteName);
     }
 
     public function getDeleteProperty()

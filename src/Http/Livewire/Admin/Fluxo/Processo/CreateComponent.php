@@ -9,6 +9,7 @@ namespace Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Tall\Fluxo\Core\Fields\Field;
 use Tall\Http\Livewire\FormComponent;
 use Tall\Fluxo\Models\FluxoEtapa;
 use Tall\Fluxo\Models\FluxoEtapaProduto;
@@ -79,7 +80,27 @@ class CreateComponent extends FormComponent
 
     public function getFluxoEtapaItemsProperty()
     {
-       return  $this->etapa->fluxo_etapa_items;
+        $result  = collect(config('tall-fluxo.fildes.before',[]));
+
+        if($fluxo_etapa_items = $this->etapa->fluxo_etapa_items){
+
+            $result->push(...$fluxo_etapa_items->map(function($field){
+                     return Field::make($field->id,
+                     $field->name,
+                     $field->slug,
+                     $field->type,
+                     $field->description,
+                     $field->width,
+                     $field->visible,
+                     $field->evento,
+                     $field->status)
+                     ->form_attributes($field->form_attributes($field))
+                     ->form_options($field->form_options())
+                     ->form_db_options($field->form_db_options())
+                     ->fluxo_field($field->fluxo_field);
+            }));
+        }
+       return $result;
     }
     public function view()
     {

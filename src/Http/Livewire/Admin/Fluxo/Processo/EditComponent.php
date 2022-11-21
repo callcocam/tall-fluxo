@@ -9,6 +9,7 @@ namespace Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Tall\Fluxo\Core\Fields\Field;
 use Tall\Http\Livewire\FormComponent;
 use Tall\Fluxo\Models\FluxoEtapa;
 use Tall\Fluxo\Models\FluxoEtapaProduto;
@@ -19,6 +20,7 @@ class EditComponent extends FormComponent
 
     public $title = "Editar";
     public $etapa;
+    public $products=[];
 
     public function mount(FluxoEtapa $etapa, FluxoEtapaProduto $model)
     {
@@ -35,11 +37,26 @@ class EditComponent extends FormComponent
         $this->etapa = $etapa;
         if ($model) {
             $this->data = data_get($model, 'produtos');
+            $products = config('tall-fluxo.fildes.before',[]);
+            if($products){
+
+                foreach($products as $product){
+                   
+                    $this->products[] = $product->name;
+                    
+                    data_set($this->data, $product->name, data_get($model, $product->name));
+
+                }
+            }
+            data_set($this->data, 'fluxo_etapa_id', data_get($model, 'fluxo_etapa_id'));
         }
     }
     protected function save(){ 
         try {
-            foreach($this->data as $fluxo_field_id => $name){
+            $products = $this->data->only(array_merge(['fluxo_etapa_id'], $this->products))->toArray();
+            $this->model->update($products); 
+
+            foreach($this->data->except(array_merge(['fluxo_etapa_id'], $this->products)) as $fluxo_field_id => $name){
                 $data['name']=$name;
                 $data['fluxo_field_id']=$fluxo_field_id;
                  if($model=  $this->model->fluxo_etapa_produto_items()
@@ -71,7 +88,27 @@ class EditComponent extends FormComponent
 
     public function getFluxoEtapaItemsProperty()
     {
-       return  $this->etapa->fluxo_etapa_items;
+        $result  = collect(config('tall-fluxo.fildes.before',[]));
+
+        if($fluxo_etapa_items = $this->etapa->fluxo_etapa_items){
+
+            $result->push(...$fluxo_etapa_items->map(function($field){
+                     return Field::make($field->id,
+                     $field->name,
+                     $field->slug,
+                     $field->type,
+                     $field->description,
+                     $field->width,
+                     $field->visible,
+                     $field->evento,
+                     $field->status)
+                     ->form_attributes($field->form_attributes($field))
+                     ->form_options($field->form_options())
+                     ->form_db_options($field->form_db_options())
+                     ->fluxo_field($field->fluxo_field);
+            }));
+        }
+       return $result;
     }
     public function view()
     {
