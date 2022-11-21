@@ -1,6 +1,6 @@
 <div class="w-full">
     <div class="bg-white shadow-md rounded p-3">
-        <fieldset class="px-4  border rounded-md">
+        <fieldset class="px-4  border rounded-md flex flex-col">
             <legend>Attributos</legend>
             <form wire:submit.prevent="submit"
                 class="flex items-center w-full space-x-2">
@@ -28,7 +28,7 @@
             </form>
             @if ($fluxo_field_attributes = $model->fluxo_field_attributes)
                 @foreach ($fluxo_field_attributes as $fluxo_field_attribute)
-                    <fieldset class=" p-2">
+                    <fieldset class=" py-2 ">
                         <legend class="text-xl">Attributos</legend>
                         @livewire('tall::admin.fluxos.fields.attributes.edit-component', ['model' => $fluxo_field_attribute], key($fluxo_field_attribute->id))
                     </fieldset>

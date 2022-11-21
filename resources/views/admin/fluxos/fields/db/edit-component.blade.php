@@ -1,6 +1,6 @@
 <div class="w-full">
-    <div class="bg-white shadow-md rounded p-3">
-        <fieldset class="px-4  border rounded-md">
+    <div class="bg-white shadow-md rounded px-2 ">
+        <fieldset class="p-4  border rounded-md">
             <legend>Data base</legend>
             <form wire:submit.prevent="submit" class="flex items-center w-full space-x-2">
                 <div class=" w-full">
@@ -26,6 +26,7 @@
                         <select title="Tipo" type="text" wire:model.lazy='data.model'
                             class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             placeholder="Tipo">
+                            <option value="">Selecione</option>
                             @if ($models = $this->models)
                                 @foreach ($models as $value)
                                     <option value="{{ data_get($value, 'id') }}">{{ data_get($value, 'name') }}</option>
@@ -38,7 +39,8 @@
                     <div class="mt-1">
                         <select title="Chave" type="text" wire:model.lazy='data.key_name'
                             class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            placeholder="Chave">
+                            placeholder="Chave"> 
+                            <option value="">Selecione</option>
                             @if ($columns)
                                 @foreach ($columns as $name => $option)
                                     @if (is_array($option))
@@ -61,6 +63,7 @@
                         <select title="Coluna(s)" type="text" wire:model.lazy='data.columns'
                             class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             placeholder="Coluna(s)">
+                            <option value="">Selecione</option>
                             @if ($columns)
                                 @foreach ($columns as $name => $option)
                                     @if (is_array($option))

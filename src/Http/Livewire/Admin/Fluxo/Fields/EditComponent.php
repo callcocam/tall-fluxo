@@ -41,7 +41,25 @@ class EditComponent extends FormComponent
             ->array(array_combine(config('tall-fluxo.views.form',[]),config('tall-fluxo.views.form',[])))->order(2)
         ];
     }
-    
+
+
+    protected function save()
+    {
+            if(parent::save()){
+                if (!in_array($this->model->view, ['select', 'radio', 'checkbox'])):
+                    $this->model->fluxo_field_options()->forceDelete();
+                    redirect()->route('admin.fluxos.fields.edit', ['model'=>$this->model]);
+                endif;
+                if (!in_array($this->model->view, ['db','db-select', 'db-radio', 'db-checkbox'])):
+                    $this->model->fluxo_field_db()->forceDelete();
+                    redirect()->route('admin.fluxos.fields.edit', ['model'=>$this->model]);
+                endif;
+            return true;
+        }
+       return false;
+    }
+
+
     public function getListProperty()
     {
         return 'admin.fluxos.fields';

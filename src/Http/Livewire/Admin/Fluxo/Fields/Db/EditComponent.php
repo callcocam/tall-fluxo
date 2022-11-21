@@ -24,6 +24,9 @@ class EditComponent extends FormComponent
 
         $this->getColumns(data_get($model, 'model'));
     }
+    public function refreshDelete($data=[]){
+        $this->setFormProperties(null);
+    }
 
     public function rules()
     {

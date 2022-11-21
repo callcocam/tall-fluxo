@@ -155,15 +155,17 @@ class TallFluxoServiceProvider extends ServiceProvider
 
     private function publishViews(): void
     {
-        $pathViews = __DIR__ . '/../../resources/views';
-
-        $this->loadViewsFrom($pathViews, 'tall');
-        Blade::anonymousComponentNamespace(__DIR__ . '/../../resources/views/components', 'tall');
+       
         if(is_dir(resource_path('views/vendor/tall-fluxo')))
         {
             $pathViews = resource_path('views/vendor/tall-fluxo');
-            $this->loadViewsFrom($pathViews, 'tall-fluxo');
+            $this->loadViewsFrom($pathViews, 'tall');
             Blade::anonymousComponentNamespace(resource_path('views/vendor/tall-fluxo/components'), 'tall');
+        }else{
+            $pathViews = __DIR__ . '/../../resources/views';
+
+            $this->loadViewsFrom($pathViews, 'tall');
+            Blade::anonymousComponentNamespace(__DIR__ . '/../../resources/views/components', 'tall');
         }
 
         $this->publishes([         

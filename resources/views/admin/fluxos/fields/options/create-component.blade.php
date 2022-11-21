@@ -1,6 +1,6 @@
 <div class="w-full">
     <div class="bg-white shadow-md rounded p-3">
-        <fieldset class="px-4  border rounded-md">
+        <fieldset class="p-4  border rounded-md">
             <legend>Options</legend>
             <form wire:submit.prevent="submit" class="flex items-center w-full space-x-2">
                 <div class="w-full">
