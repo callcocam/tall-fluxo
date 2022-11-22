@@ -53,7 +53,8 @@ return [
             'range',
             'email',
             'number',
-            'textarea'
+            'textarea',
+            'moeda'
         ],
         'db'=>[
             'db',
