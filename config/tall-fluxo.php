@@ -15,7 +15,7 @@ return [
             'nome_produto',
             'text',
             null,
-            12,
+            8,
             1,
             'defer',
             'published')->form_attributes([
@@ -28,7 +28,7 @@ return [
             'cod_barras',
             'text',
             null,
-            12,
+            4,
             1,
             'defer',
             'published')->form_attributes([
