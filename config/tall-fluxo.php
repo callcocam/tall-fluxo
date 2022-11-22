@@ -11,7 +11,7 @@ return [
     'fildes'=>[
         'before'=>[
             Field::make(null,
-            'nome_produto',
+            'Nome do Produto',
             'nome_produto',
             'text',
             null,
@@ -21,7 +21,7 @@ return [
             'published')->form_attributes([
                 'wire:model.defer'=>'data.nome_produto',
                 'type'=>'text',
-                'class'=>'block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
+                'class'=>'block w-full rounded-md border-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
             ]),
             Field::make(null,
             'cod_barras',
@@ -34,7 +34,7 @@ return [
             'published')->form_attributes([
                 'wire:model.defer'=>'data.cod_barras',
                 'type'=>'text',
-                'class'=>'block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
+                'class'=>'block w-full rounded-md border-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
             ])
         ],
         'after'=>[
