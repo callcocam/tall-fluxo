@@ -11,7 +11,7 @@ return [
     'fildes'=>[
         'before'=>[
             Field::make(null,
-            'Nome do Produto',
+            'nome_produto',
             'nome_produto',
             'text',
             null,
