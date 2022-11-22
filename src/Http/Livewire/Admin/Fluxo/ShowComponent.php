@@ -51,11 +51,12 @@ class ShowComponent extends FormComponent
                     if($value){
                         if($fluxo_etapa_items = $etapa->fluxo_etapa_items()->where('fluxo_field_id',$key)->first()){
                             $field = FluxoField::where('id', $value)->first();
-                            data_set($data,'name', $field->name);
-                            data_set($data,'description', $field->description);
-                            data_set($data,'type', $field->type);
-                            data_set($data,'updated_at', now()->format("Y-m-d"));
-                            $fluxo_etapa_items->update($data);
+                            $fluxo_etapa_items->update([
+                                'name'=> $field->name,
+                                'description'=> $field->description,
+                                'type'=> $field->type,
+                                'updated_at'=> now()->format("Y-m-d"),
+                            ]);
                         }else{
                             $field = FluxoField::where('id', $value)->first();
                             data_set($data,'fluxo_field_id', $field->id);
