@@ -5,11 +5,11 @@
 * https://www.bengs.com.br
 */
 namespace Tall\Fluxo\Core\Fields;
-
-class Field 
+class Field
 {
 
     protected $form_db_options;
+    protected $label;
     protected $fluxo_field;
     protected $form_attributes = [];
     protected $form_options = [];
@@ -26,7 +26,7 @@ class Field
         public $status
     )
     {
-        # code...
+       $this->label = \Str::title($name);
     }
 
 
@@ -73,7 +73,12 @@ class Field
 
         return $this;
     }
+    public function label($label)
+    {
+        $this->label = $label;
 
+        return $this;
+    }
 
     public function form_db_options($form_db_options)
     {

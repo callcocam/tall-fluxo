@@ -22,9 +22,9 @@ return [
                 'wire:model.defer'=>'data.nome_produto',
                 'type'=>'text',
                 'class'=>'block w-full rounded-md border-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-            ]),
+            ])->label('Nome do Produto'),
             Field::make(null,
-            'cod_barras',
+            'Código de Barras',
             'cod_barras',
             'text',
             null,
@@ -35,7 +35,7 @@ return [
                 'wire:model.defer'=>'data.cod_barras',
                 'type'=>'text',
                 'class'=>'block w-full rounded-md border-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-            ])
+            ])->label('Código de Barra')
         ],
         'after'=>[
 
