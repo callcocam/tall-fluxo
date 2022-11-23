@@ -47,7 +47,7 @@ class ListComponent extends TableComponent
 
     public function getShowProperty()
     {
-       return 'admin.fluxos.fields.view';
+//       return 'admin.fluxos.fields.view';
     }
     public function getEditProperty()
     {
