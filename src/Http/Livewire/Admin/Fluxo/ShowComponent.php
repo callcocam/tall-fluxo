@@ -102,19 +102,21 @@ class ShowComponent extends FormComponent
             foreach($etapas as $etapa){
                 $data = [];
                 if( $model = $this->model->fluxo_etapas()->where('id',$etapa)->first()){
-                    data_set($data,'fluxo_field_id', $field->id);
-                    data_set($data,'name', $field->name);
-                    data_set($data,'description', $field->description);
-                    data_set($data,'evento', 'defer');
-                    data_set($data,'type', $field->type);
-                    data_set($data,'width', '12');
-                    data_set($data,'visible', '1');
-                    data_set($data,'ordering', $i++);
-                    data_set($data,'user_id', auth()->id());
-                    data_set($data,'status', 'published');
-                    data_set($data,'created_at', now()->format("Y-m-d"));
-                    data_set($data,'updated_at', now()->format("Y-m-d"));
-                    $model->fluxo_etapa_items()->create($data);
+                    if(!$model->fluxo_etapa_items()->where('fluxo_field_id',$field->id)->first()){
+                        data_set($data,'fluxo_field_id', $field->id);
+                        data_set($data,'name', $field->name);
+                        data_set($data,'description', $field->description);
+                        data_set($data,'evento', 'defer');
+                        data_set($data,'type', $field->type);
+                        data_set($data,'width', '12');
+                        data_set($data,'visible', '1');
+                        data_set($data,'ordering', $i++);
+                        data_set($data,'user_id', auth()->id());
+                        data_set($data,'status', 'published');
+                        data_set($data,'created_at', now()->format("Y-m-d"));
+                        data_set($data,'updated_at', now()->format("Y-m-d"));
+                        $model->fluxo_etapa_items()->create($data);
+                    }
                 }
             }
             
