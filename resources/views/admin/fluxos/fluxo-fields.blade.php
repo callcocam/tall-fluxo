@@ -74,6 +74,10 @@
                                                     class="rounded-md bg-white font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                                     <x-tall-icon name="pencil" class="h-5 w-5" />
                                                 </button>
+                                                  <button wire:click="removeField('{{ $field->id }}')" type="button"
+                                                          class="rounded-md bg-white font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                                    <x-tall-icon name="trash" class="h-5 w-5" />
+                                                </button>
                                             </div>
                                         @endif
                                     @endif

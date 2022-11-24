@@ -43,7 +43,7 @@ class ShowComponent extends FormComponent
     public function getFieldsProperty()
     {
         $fields = FluxoField::query()->where('status', 'published')->get();
-           
+
         // foreach($fields as $field){
         //     $values=[];
         //     if ($etapas = $this->model->fluxo_etapas):
@@ -63,7 +63,7 @@ class ShowComponent extends FormComponent
 
         $this->model->fluxo_fields()->sync(array_filter($this->selected));
 
-        if($etapas = $this->model->fluxo_etapas){       
+        if($etapas = $this->model->fluxo_etapas){
             foreach($etapas as $etapa){
                 foreach($this->selected as $key => $value){
                     if(!$value){
@@ -73,7 +73,7 @@ class ShowComponent extends FormComponent
             }
             return redirect()->route('admin.fluxos.view', ['model'=>$this->model]);
         }
-        // if($etapas = $this->model->fluxo_etapas){       
+        // if($etapas = $this->model->fluxo_etapas){
         //     foreach($etapas as $etapa){
         //         $data = [];
         //         foreach($this->selected as $key => $value){
@@ -136,7 +136,7 @@ class ShowComponent extends FormComponent
                     }
                 }
             }
-            
+
             $this->emit('refreshCreate');
         }
     }
@@ -160,10 +160,9 @@ class ShowComponent extends FormComponent
         }
     }
 
-    
+
     public function removeField(FluxoField $field)
     {
-        
         if($etapas = data_get($this->selectedEtapa, $field->id)){
             foreach($etapas as $etapa){
                 if( $model = $this->model->fluxo_etapas()->where('id',$etapa)->first()){
