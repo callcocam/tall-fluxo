@@ -15,6 +15,7 @@ class Field
     protected $label;
     protected $fluxo_field;
     protected $sortable = false;
+    protected $listado = false;
     protected $form_attributes = [];
     protected $form_options = [];
 
@@ -100,6 +101,12 @@ class Field
 
         return $this;
     }
+    public function listado($listado)
+    {
+        $this->listado = $listado;
+
+        return $this;
+    }
 
 
     public function __get($name)
@@ -107,7 +114,7 @@ class Field
         return $this->{$name};
     }
 
-    
+
     public function __set($name, $value)
     {
         $this->{$name} = $value;

@@ -35,18 +35,20 @@
                                 @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
                                     @foreach ($fluxo_etapa_items as $fluxo_etapa_item)
                                         @if ($fluxo_etapa_item->visible)
-                                            <th class="py-1 px-6 text-left  cursor-pointer">
-                                                <div class="flex flex-col space-y-1">
-                                                    @if ($fluxo_etapa_item->sortable)
-                                                        <x-tall-table.sort name="{{ $fluxo_etapa_item->name }}">
+                                            @if ($fluxo_etapa_item->listado)
+                                                <th class="py-1 px-6 text-left  cursor-pointer">
+                                                    <div class="flex flex-col space-y-1">
+                                                        @if ($fluxo_etapa_item->sortable)
+                                                            <x-tall-table.sort name="{{ $fluxo_etapa_item->name }}">
+                                                                {{ __($fluxo_etapa_item->label) }}
+                                                            </x-tall-table.sort>
+                                                        @else
                                                             {{ __($fluxo_etapa_item->label) }}
-                                                        </x-tall-table.sort>
-                                                    @else
-                                                        {{ __($fluxo_etapa_item->label) }}
-                                                    @endif
+                                                        @endif
 
-                                                </div>
-                                            </th>
+                                                    </div>
+                                                </th>
+                                            @endif
                                         @endif
                                     @endforeach
                                 @endif
@@ -60,23 +62,25 @@
                                         @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
                                             @foreach ($fluxo_etapa_items as $fluxo_etapa_item)
                                                 @if ($fluxo_etapa_item->visible)
-                                                    <td class="py-3 px-6 text-left">
-                                                        @if ($fluxo_etapa_item->id)
-                                                            @if ($form_db_options = $fluxo_etapa_item->form_db_options)
-                                                                @if ($name = data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)))
-                                                                    {{ data_get($form_db_options, $name) }}
-                                                                @endif
-                                                            @elseif ($form_options = $fluxo_etapa_item->form_options)
-                                                                @if ($name = data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)))
-                                                                    {{ data_get($form_options, $name) }}
+                                                    @if ($fluxo_etapa_item->listado)
+                                                        <td class="py-3 px-6 text-left">
+                                                            @if ($fluxo_etapa_item->id)
+                                                                @if ($form_db_options = $fluxo_etapa_item->form_db_options)
+                                                                    @if ($name = data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)))
+                                                                        {{ data_get($form_db_options, $name) }}
+                                                                    @endif
+                                                                @elseif ($form_options = $fluxo_etapa_item->form_options)
+                                                                    @if ($name = data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)))
+                                                                        {{ data_get($form_options, $name) }}
+                                                                    @endif
+                                                                @else
+                                                                    {{ data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)) }}
                                                                 @endif
                                                             @else
-                                                                {{ data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)) }}
+                                                                {{ data_get($model, $fluxo_etapa_item->name) }}
                                                             @endif
-                                                        @else
-                                                            {{ data_get($model, $fluxo_etapa_item->name) }}
-                                                        @endif
-                                                    </td>
+                                                        </td>
+                                                    @endif
                                                 @endif
                                             @endforeach
                                         @endif
