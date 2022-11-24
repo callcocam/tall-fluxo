@@ -17,6 +17,7 @@ class FluxoField extends AbstractModel
 
     protected $guarded = ['id'];
     protected $with = ['fluxo_field_attributes', 'fluxo_field_options','fluxo_field_db'];
+    protected $appends = ['fluxo_field_etapa'];
 
      /**
      * The attributes that should be cast.
@@ -29,6 +30,24 @@ class FluxoField extends AbstractModel
     ];
 
     //protected $table = "table";
+
+    public function fluxo_field_etapa_items()
+    {
+        return $this->hasMany(FluxoEtapaItem::class)->orderBy('ordering');
+    }
+
+    //protected $table = "table";
+
+    public function getFluxoFieldEtapaItemsAttribute()
+    {
+        return $this->hasMany(FluxoEtapaItem::class)->orderBy('ordering')->pluck('id','id');
+    }
+
+    public function getFluxoFieldEtapaAttribute()
+    {
+        return $this->belongsTo(FluxoEtapa::class)->orderBy('ordering')->pluck('id','id');
+    }
+    
 
     public function fluxo_field_attributes()
     {

@@ -10,6 +10,7 @@ namespace Tall\Fluxo\Http\Livewire\Admin\Fluxo;
 use App\Models\FluxoField;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Arr;
 use Tall\Http\Livewire\FormComponent;
 use Tall\Fluxo\Models\Fluxo;
 
@@ -28,7 +29,10 @@ class ShowComponent extends FormComponent
         $this->setFormProperties($model);
 
        $this->selected = data_get($this->data, 'fields');
-      
+    //    $this->model->fluxo_fields->map(function($fluxo_field)use($model){
+    //         $this->selectedEtapa[$fluxo_field->id] = $model->fluxo_field_etapa->toArray();
+    //     })->toArray();
+    //   dd( $this->selectedEtapa);
     }
 
     public function route(){
@@ -38,7 +42,20 @@ class ShowComponent extends FormComponent
 
     public function getFieldsProperty()
     {
-        return FluxoField::query()->where('status', 'published')->get();
+        $fields = FluxoField::query()->where('status', 'published')->get();
+           
+        // foreach($fields as $field){
+        //     $values=[];
+        //     if ($etapas = $this->model->fluxo_etapas):
+        //         foreach ($etapas as $key => $value):
+        //             if (in_array($field->id, $this->selected)):
+        //                 $values[$value->id] = $value->id;
+        //             endif;
+        //         endforeach;
+        //     endif;
+        //     $this->selectedEtapa[$field->id] = $values;
+        // }
+        return $fields;
     }
 
     public function updatedSelected($values)
