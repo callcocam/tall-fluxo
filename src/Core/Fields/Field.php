@@ -14,6 +14,7 @@ class Field
     protected $form_db_options;
     protected $label;
     protected $fluxo_field;
+    protected $sortable = false;
     protected $form_attributes = [];
     protected $form_options = [];
 
@@ -89,6 +90,13 @@ class Field
     public function form_db_options($form_db_options)
     {
         $this->form_db_options = $form_db_options;
+
+        return $this;
+    }
+
+    public function sortable($sortable)
+    {
+        $this->sortable = $sortable;
 
         return $this;
     }

@@ -37,9 +37,14 @@
                                         @if ($fluxo_etapa_item->visible)
                                             <th class="py-1 px-6 text-left  cursor-pointer">
                                                 <div class="flex flex-col space-y-1">
-                                                    <x-tall-table.sort name="{{ $fluxo_etapa_item->name }}">
+                                                    @if ($fluxo_etapa_item->sortable)
+                                                        <x-tall-table.sort name="{{ $fluxo_etapa_item->name }}">
+                                                            {{ __($fluxo_etapa_item->label) }}
+                                                        </x-tall-table.sort>
+                                                    @else
                                                         {{ __($fluxo_etapa_item->label) }}
-                                                    </x-tall-table.sort>
+                                                    @endif
+
                                                 </div>
                                             </th>
                                         @endif
