@@ -5,6 +5,9 @@
 * https://www.bengs.com.br
 */
 namespace Tall\Fluxo\Core\Fields;
+
+use Illuminate\Support\Str;
+
 class Field
 {
 
@@ -23,10 +26,11 @@ class Field
         public $width,
         public $visible,
         public $evento = 'defer',
-        public $status
+        public $fluxo_field_id = null,
+        public $status='published'
     )
     {
-       $this->label = \Str::title($name);
+       $this->label = Str::title($name);
     }
 
 
@@ -37,8 +41,9 @@ class Field
    $description,
    $width,
    $visible,
-   $evento,
-   $status)
+   $evento = 'defer',
+   $fluxo_field_id = null,
+   $status='published')
     {
       return new static($id,
       $name,
@@ -48,6 +53,7 @@ class Field
       $width,
       $visible,
       $evento,
+      $fluxo_field_id,
       $status);
     }
 

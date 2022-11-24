@@ -24,7 +24,7 @@ return [
                 'class'=>'block w-full rounded-md border-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
             ])->label('Nome do Produto'),
             Field::make(null,
-            'Código de Barras',
+            'cod_barras',
             'cod_barras',
             'text',
             null,

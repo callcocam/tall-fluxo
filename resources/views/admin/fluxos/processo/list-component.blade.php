@@ -4,7 +4,7 @@
 </x-slot>
 <div class="w-full">
     <div class="overflow-x-auto">
-        <div class="min-w-screen min-h-screen bg-gray-100 flex  font-sans overflow-hidden">
+        <div class="min-w-screen min-h-screen bg-gray-100 flex  font-sans">
             <div class="w-full">
                 <div class="bg-white shadow-md rounded px-4">
                     <div class="sm:flex sm:items-center px-6 pt-6 pb-4">
@@ -32,14 +32,13 @@
                     <table class="w-full table-auto">
                         <thead class="shadow-md rounded-t-sm">
                             <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal rounded-t-md">
-                                @if ($fluxo_etapa_items = data_get($etapa, 'fluxo_etapa_items'))
+                                @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
                                     @foreach ($fluxo_etapa_items as $fluxo_etapa_item)
-                                        @if (data_get($fluxo_etapa_item, 'visible'))
+                                        @if ($fluxo_etapa_item->visible)
                                             <th class="py-1 px-6 text-left  cursor-pointer">
                                                 <div class="flex flex-col space-y-1">
-                                                    <x-tall-table.sort
-                                                        name="{{ data_get($fluxo_etapa_item, 'name') }}">
-                                                        {{ __(data_get($fluxo_etapa_item, 'name')) }}
+                                                    <x-tall-table.sort name="{{ $fluxo_etapa_item->name }}">
+                                                        {{ __($fluxo_etapa_item->label) }}
                                                     </x-tall-table.sort>
                                                 </div>
                                             </th>
@@ -53,12 +52,29 @@
                             <tbody class="text-gray-600 text-sm font-light">
                                 @foreach ($models as $model)
                                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                        <td class="py-3 px-6 text-left">
-                                            {{ $model->nome_produto}}
-                                        </td>   
-                                        <td class="py-3 px-6 text-left">
-                                            {{ $model->cod_barras}}
-                                        </td>
+                                        @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
+                                            @foreach ($fluxo_etapa_items as $fluxo_etapa_item)
+                                                @if ($fluxo_etapa_item->visible)
+                                                    <td class="py-3 px-6 text-left">
+                                                        @if ($fluxo_etapa_item->id)
+                                                            @if ($form_db_options = $fluxo_etapa_item->form_db_options)
+                                                                @if ($name = data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)))
+                                                                    {{ data_get($form_db_options, $name) }}
+                                                                @endif
+                                                            @elseif ($form_options = $fluxo_etapa_item->form_options)
+                                                                @if ($name = data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)))
+                                                                    {{ data_get($form_options, $name) }}
+                                                                @endif
+                                                            @else
+                                                                {{ data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)) }}
+                                                            @endif
+                                                        @else
+                                                            {{ data_get($model, $fluxo_etapa_item->name) }}
+                                                        @endif
+                                                    </td>
+                                                @endif
+                                            @endforeach
+                                        @endif
                                         <td class="py-3 px-6 text-left">
                                             @include('tall::admin.fluxos.processo.actions')
                                         </td>

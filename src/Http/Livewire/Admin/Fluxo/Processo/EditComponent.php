@@ -13,6 +13,7 @@ use Tall\Fluxo\Core\Fields\Field;
 use Tall\Http\Livewire\FormComponent;
 use Tall\Fluxo\Models\FluxoEtapa;
 use Tall\Fluxo\Models\FluxoEtapaProduto;
+use Illuminate\Validation\Rule;
 
 class EditComponent extends FormComponent
 {
@@ -54,6 +55,7 @@ class EditComponent extends FormComponent
     protected function save(){ 
         try {
             $products = $this->data->only(array_merge(['fluxo_etapa_id'], $this->products))->toArray();
+            
             $this->model->update($products); 
 
             foreach($this->data->except(array_merge(['fluxo_etapa_id'], $this->products)) as $fluxo_field_id => $name){
@@ -78,7 +80,12 @@ class EditComponent extends FormComponent
     }
     public function rules()
     {
-        return [ ];
+        return [
+            'cod_barras'=>[
+                'required',
+                Rule::unique('fluxo_etapa_produtos', 'cod_barras')->ignore($this->model->id)
+            ]
+         ];
     }
     
     public function getListProperty()
@@ -101,7 +108,8 @@ class EditComponent extends FormComponent
                      $field->width,
                      $field->visible,
                      $field->evento,
-                     $field->status)
+                     $field->status,
+                     $field->fluxo_field_id)
                      ->form_attributes($field->form_attributes($field))
                      ->form_options($field->form_options())
                      ->form_db_options($field->form_db_options())

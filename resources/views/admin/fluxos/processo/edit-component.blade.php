@@ -41,8 +41,6 @@
                                                             <span class="uppercase">
                                                             {{ $fluxo_etapa->name }}
                                                             </span>
-                                                            <span
-                                                                class="bg-gray-100 text-gray-900 hidden ml-3 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block">{{ $fluxo_etapa->total }}</span>
                                                         </a>
                                                     @endcan
                                                 @endforeach

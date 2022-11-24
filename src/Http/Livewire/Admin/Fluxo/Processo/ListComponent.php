@@ -8,6 +8,7 @@ namespace Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Tall\Fluxo\Core\Fields\Field;
 use Tall\Fluxo\Models\FluxoEtapa;
 use Tall\Http\Livewire\TableComponent;
 class ListComponent extends TableComponent
@@ -83,6 +84,32 @@ class ListComponent extends TableComponent
     public function getOrderProperty()
     {
        return  null;
+    }
+
+    public function getFluxoEtapaItemsProperty()
+    {
+        $result  = collect(config('tall-fluxo.fildes.before',[]));
+
+        if($fluxo_etapa_items = data_get($this->etapa, 'fluxo_etapa_items')){
+            $result->push(...$fluxo_etapa_items->map(function($field){
+                     return Field::make($field->id,
+                     $field->name,
+                     $field->slug,
+                     $field->type,
+                     $field->description,
+                     $field->width,
+                     $field->visible,
+                     $field->evento,
+                     $field->fluxo_field_id,
+                     $field->status
+                     )
+                     ->form_attributes($field->form_attributes($field))
+                     ->form_options($field->form_options())
+                     ->form_db_options($field->form_db_options())
+                     ->fluxo_field($field->fluxo_field);
+            }));
+        }
+       return $result;
     }
     public function view()
     {

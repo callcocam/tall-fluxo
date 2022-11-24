@@ -14,6 +14,7 @@ use Tall\Fluxo\Core\Fields\Field;
 use Tall\Http\Livewire\FormComponent;
 use Tall\Fluxo\Models\FluxoEtapa;
 use Tall\Fluxo\Models\FluxoEtapaProduto;
+use Illuminate\Validation\Rule;
 
 class CreateComponent extends FormComponent
 {
@@ -88,9 +89,13 @@ class CreateComponent extends FormComponent
     }
     public function rules()
     {
-        return [];
+        return [
+            'cod_barras'=>[
+                'required',
+                Rule::unique('fluxo_etapa_produtos', 'cod_barras')
+            ]
+         ];
     }
-
     
     public function getListProperty()
     {
@@ -117,7 +122,8 @@ class CreateComponent extends FormComponent
                      $field->width,
                      $field->visible,
                      $field->evento,
-                     $field->status)
+                     $field->status,
+                     $field->fluxo_field_id)
                      ->form_attributes($field->form_attributes($field))
                      ->form_options($field->form_options())
                      ->form_db_options($field->form_db_options())
