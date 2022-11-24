@@ -1,6 +1,6 @@
 <div class="w-full ">
     <div class="bg-white  rounded">
-        <form wire:submit.prevent="submit" class="flex items-center p-3 w-full space-x-2">
+        <form wire:submit.prevent="submit" class="flex items-center p-1 w-full space-x-2">
             <div class=" w-full">
                 <div class="mt-1">
                     <input title="Nome da etapa" type="text" wire:model.lazy='data.name'

@@ -1,6 +1,6 @@
 <div class="w-full">
     <div class="bg-white px-5 rounded">
-        <form wire:submit.prevent="submit" class="flex items-center p-3 border rounded-md w-full space-x-2">
+        <form wire:submit.prevent="submit" class="flex items-center p-1 border rounded-md w-full space-x-2">
             
             <div class="w-full">
                 <div class="mt-1">
