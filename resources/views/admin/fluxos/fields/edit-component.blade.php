@@ -13,17 +13,12 @@
                             <h3 class="text-lg leading-6 font-medium text-gray-900">
                                 {{ $model->name }}</h3>
                         </div>
-                        <form wire:submit.prevent="submit" class="border-t border-gray-200">
+                        @livewire('tall::admin.fluxo.fields.show-component', compact('model'))
+
+                        <form wire:submit.prevent="submit" class="border-t border-gray-200 mt-4">
                             <x-errors />
                             <dl>
-                                <div class="bg-white px-4 py-5 flex justify-between sm:px-6">
-                                    @if ($list = $this->list)
-                                        <x-button red squared href="{{ route($list) }}" icon="arrow-narrow-left"
-                                            label="{{ __('Voltar para a lista') }}" primary />
-                                    @endif
-                                    <x-button icon="save" indigo squared type="submit"
-                                        label="{{ __('Salvar alterações') }}" />
-                                </div>
+
                                 @if ($types = $this->types)
                                     @foreach ($types as $name => $field)
                                         @if ($field->condition)
@@ -36,8 +31,15 @@
                                     @endforeach
                                 @endif
                             </dl>
+                            <div class="bg-white px-4 py-5 flex justify-between sm:px-6">
+                                @if ($list = $this->list)
+                                    <x-button red squared href="{{ route($list) }}" icon="arrow-narrow-left"
+                                              label="{{ __('Voltar para a lista') }}" primary />
+                                @endif
+                                <x-button icon="save" indigo squared type="submit"
+                                          label="{{ __('Salvar alterações') }}" />
+                            </div>
                         </form>
-                        @livewire('tall::admin.fluxo.fields.show-component', compact('model'))
                     </div>
                 </div>
             </div>
