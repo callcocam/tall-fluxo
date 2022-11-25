@@ -19,16 +19,12 @@
                             <x-tall-table.filters.clear :filters="$filters" />
                             <x-tall-table.search />
                             @if($etapa->ordering == 1)
-                            @if (\Route::has($this->create))
-                                <x-tall-table.add href="{{ route($this->create, $etapa) }}">
-                                    {{ __('Adicionar') }}
-                                </x-tall-table.add>
+                                @if (\Route::has($this->create))
+                                    <x-tall-table.add href="{{ route($this->create, $etapa) }}">
+                                        {{ __('Cadastrar novo Produto') }}
+                                    </x-tall-table.add>
+                                @endif
                             @endif
-                            @endif
-{{--                            @if (\Route::has($this->order))--}}
-{{--                                <x-tall-table.order href="{{ route($this->order) }}" />--}}
-{{--                            @endif--}}
-
                         </div>
                     </div>
 
