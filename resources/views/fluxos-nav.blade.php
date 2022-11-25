@@ -41,7 +41,18 @@
                             </a>
                         </div>
                     @endcan
+
                 @endforeach
+                <div class="space-y-1">
+                    <a href=""
+                       class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                        <x-dynamic-component component="tall::icons.outline.plus"
+                                             class="mr-1 h-4 w-4 flex-shrink-0 " />
+                        <span class="uppercase">
+                                    LISTAR TODOS
+                                </span>
+                    </a>
+                </div>
             @endif
         @endforeach
     @endif
