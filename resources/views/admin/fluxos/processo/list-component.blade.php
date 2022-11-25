@@ -1,15 +1,16 @@
 <x-slot name="header">
-    <x-tall-table.breadcrumbs url="{{ route($this->list, $etapa) }}" label="{{ __('Fluxos') }}" />
+    <x-tall-table.breadcrumbs url="{{ route($this->list, $etapa) }}" label="{{ __('Produtos') }}" />
     <x-tall-table.breadcrumbs url="#" label="{{ __('Listar') }}" />
 </x-slot>
+
 <div class="w-full">
     <div class="overflow-x-auto">
         <div class="min-w-screen min-h-screen bg-gray-100 flex  font-sans">
             <div class="w-full">
                 <div class="bg-white shadow-md rounded px-4">
-                    <div class="sm:flex sm:items-center px-6 pt-6 pb-4">
+                    <div class="sm:flex sm:items-center pt-6 pb-4">
                         <div class="sm:flex-auto">
-                            <h1 class="text-xl font-semibold text-gray-900">{{ __('Fluxos') }}</h1>
+                            <h1 class="text-xl font-semibold text-gray-900">Etapa do cadastro: {{$etapa->name}}</h1>
                             @isset($description)
                                 <p class="mt-2 text-sm text-gray-700">{{ $description }}</p>
                             @endisset
@@ -17,14 +18,16 @@
                         <div class="mt-4 sm:mt-0 sm:ml-16 flex items-center space-x-2">
                             <x-tall-table.filters.clear :filters="$filters" />
                             <x-tall-table.search />
+                            @if($etapa->ordering == 1)
                             @if (\Route::has($this->create))
                                 <x-tall-table.add href="{{ route($this->create, $etapa) }}">
                                     {{ __('Adicionar') }}
                                 </x-tall-table.add>
                             @endif
-                            @if (\Route::has($this->order))
-                                <x-tall-table.order href="{{ route($this->order) }}" />
                             @endif
+{{--                            @if (\Route::has($this->order))--}}
+{{--                                <x-tall-table.order href="{{ route($this->order) }}" />--}}
+{{--                            @endif--}}
 
                         </div>
                     </div>
