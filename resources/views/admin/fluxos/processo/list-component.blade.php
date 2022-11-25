@@ -51,7 +51,7 @@
                                         @endif
                                     @endforeach
                                 @endif
-                                <th class="py-3 px-6 text-center">#</th>
+                                <th class="py-3 px-6 text-center">Ações</th>
                             </tr>
                         </thead>
                         @if ($models->count())

@@ -1,10 +1,8 @@
 @props(['field'])
-<div wire:key="{{ $field->slug }}" class="col-span-12 md:col-span-{{ $field->width }}">
+<div wire:key="{{ $field->slug }}">
     <label class="block" for="{{ $field->name }}">
-        <span> {{ __($field->label) }}</span>
+        <span> {{ __($field->label) }} </span>
         <input {{ $attributes->merge($field->form_attributes) }} />
-        @if ($field->description)
-            <p class="text-xs">{{ __($field->description) }}</p>
-        @endif
+        <p class="mt-2 text-xs text-gray-500" id="email-description">{{ $field->description}}</p>
     </label>
 </div>

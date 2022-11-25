@@ -35,7 +35,7 @@
                                                 @foreach ($fluxo_etapas as $fluxo_etapa)
                                                     @can(sprintf('admin.%s.processo.edit', $fluxo->id))
                                                         <a href="{{ route(sprintf('admin.%s.processo.edit', $fluxo->id), ['etapa' => $fluxo_etapa, 'model' => $model]) }}"
-                                                            @if ($fluxo_etapa->id == $etapa->id) class="border-indigo-500 text-indigo-600 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm"    
+                                                            @if ($fluxo_etapa->id == $etapa->id) class="border-indigo-500 text-indigo-600 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm"
                                                         @else
                                                         class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm"> @endif
                                                             <span class="uppercase">
@@ -57,15 +57,17 @@
                             @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
                                 @foreach ($fluxo_etapa_items as $field)
                                     @if ($field->visible)
-                                        @if ($fluxo_field = $field->fluxo_field)
-                                            <x-dynamic-component
-                                                component="{{ sprintf('tall-form.views.%s', data_get($fluxo_field, 'view', 'text')) }}"
-                                                :field="$field" />
-                                        @else
-                                            <x-dynamic-component
-                                                component="{{ sprintf('tall-form.views.%s', data_get($field, 'view', 'text')) }}"
-                                                :field="$field" />
-                                        @endif
+                                        <div class="col-span-{{$field->width}} p-2 bg-gray-100 rounded-md">
+                                            @if ($fluxo_field = $field->fluxo_field)
+                                                <x-dynamic-component
+                                                    component="{{ sprintf('tall-form.views.%s', data_get($fluxo_field, 'view', 'text')) }}"
+                                                    :field="$field" />
+                                            @else
+                                                <x-dynamic-component
+                                                    component="{{ sprintf('tall-form.views.%s', data_get($field, 'view', 'text')) }}"
+                                                    :field="$field" />
+                                            @endif
+                                        </div>
                                     @endif
                                 @endforeach
                             @endif
