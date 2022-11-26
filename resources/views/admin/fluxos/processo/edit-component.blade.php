@@ -125,23 +125,3 @@
     </style>
 </div>
 
-
-<div class="col-span-12 p-2 bg-gray-100 rounded-md form-edicao-produtos">
-    <div wire:key="campo-centimetros" class="col-span-12 md:col-span-12">
-        <label class="block" for="Campo centimetros">
-            <span> Campo Centimetros</span>
-            <input wire:model.defer="data.4b2e6d6b-c9fa-40f7-aa37-db7c7de0f531" type="centimetros">
-            <p class="mt-2 text-xs text-gray-500" id="email-description">Campo do tipo centímetros</p>
-        </label>
-    </div>
-</div>
-
-<div class="col-span-12 p-2 bg-gray-100 rounded-md form-edicao-produtos">
-    <div wire:key="campo-peso" class="col-span-12 md:col-span-12">
-        <label class="block" for="Campo peso">
-            <span> Campo Peso</span>
-            <input wire:model.defer="data.c0a97727-d6df-4783-8b77-9498649bbbfb" type="text">
-            <p class="mt-2 text-xs text-gray-500" id="email-description">Campo do tipo peso</p>
-        </label>
-    </div>
-</div>
