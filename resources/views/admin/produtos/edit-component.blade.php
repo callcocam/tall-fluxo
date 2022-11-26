@@ -1,5 +1,5 @@
 <x-slot name="header">
-    <x-tall-table.breadcrumbs url="{{ route($this->list) }}" label="{{ __('Fluxo') }}" />
+    <x-tall-table.breadcrumbs url="{{ route($this->list) }}" label="{{ __('Produtos') }}" />
     <x-tall-table.breadcrumbs url="#" label="{{ $title }}" />
 </x-slot>
 <div class="w-full">

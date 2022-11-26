@@ -25,7 +25,7 @@ class ShowComponent extends FormComponent
     {
         $this->authorize(Route::currentRouteName());
         $this->setFormProperties($model);
-        dd($model->toArray());
+        // dd($model->toArray());
     }
 
     public function route(){
