@@ -48,13 +48,14 @@ return [
             'checkbox',
             'select',
             'date',
-            'phone',
             'datetime-local',
             'range',
-            'email',
             'number',
             'textarea',
-            'moeda'
+            'moeda',
+            'centimetros',
+            'peso',
+
         ],
         'db'=>[
             'db',
