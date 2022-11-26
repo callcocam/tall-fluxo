@@ -28,23 +28,23 @@ class ShowComponent extends FormComponent
     }
 
     public function route(){
-        Route::get('/produtos/{model}/visualizar', static::class)->name('admin.produtos.view');
+        Route::get('/produtos/{model}/visualizar', static::class)->name('admin.fluxo.produtos.view');
     }
 
 
 
     public function getListProperty()
     {
-        return 'admin.produtos';
+        return 'admin.fluxo.produtos';
     }
 
     public function getEditProperty()
     {
-      return 'admin.produtos.edit';
+      return 'admin.fluxo.produtos.edit';
     }
     public function getDeleteProperty()
     {
-     return 'admin.produtos.delete';
+     return 'admin.fluxo.produtos.delete';
     }
     public function view()
     {

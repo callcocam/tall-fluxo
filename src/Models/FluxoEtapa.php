@@ -16,7 +16,8 @@ class FluxoEtapa extends AbstractModel
     use HasFactory, BelongsToTenants, UsesTenantConnection;
 
     protected $guarded = ['id'];
-    protected $with = ['fluxo_etapa_items','fluxo'];
+    // protected $with = ['fluxo_etapa_items','fluxo'];
+    protected $with = ['fluxo_etapa_items','fluxo_etapa_items_all'];
     // protected $appends = ['etapa_items'];
 
      /**
@@ -35,6 +36,11 @@ class FluxoEtapa extends AbstractModel
     public function fluxo()
     {
         return $this->belongsTo(Fluxo::class);
+    }
+    
+    public function fluxo_etapa_items_all()
+    {
+        return $this->hasMany(FluxoEtapaItem::class)->orderBy('ordering')->distinct();
     }
     
     public function fluxo_etapa_items()

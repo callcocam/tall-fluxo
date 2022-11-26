@@ -18,7 +18,7 @@ class FluxoEtapaProduto extends AbstractModel
     protected $guarded = ['id'];
 
     protected $appends = ['produtos'];
-    protected $with = ['fluxo_etapa_produto_items'];
+    protected $with = ['fluxo_etapa_produto_items','fluxo'];
 
      /**
      * The attributes that should be cast.
@@ -31,6 +31,11 @@ class FluxoEtapaProduto extends AbstractModel
     ];
 
     //protected $table = "table";
+
+    public function fluxo()
+    {
+        return $this->belongsTo(Fluxo::class);
+    }
 
     public function fluxo_etapa_produto_items()
     {

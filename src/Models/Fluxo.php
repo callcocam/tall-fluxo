@@ -17,6 +17,7 @@ class Fluxo extends AbstractModel
     protected $guarded = ['id'];
 
     // protected $with = ['fluxo_etapas', 'fluxo_etapa_produtos','fluxo_fields'];
+    protected $with = ['fluxo_etapas'];
     protected $appends = ['fields'];
 
      /**

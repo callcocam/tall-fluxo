@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Tall\Http\Livewire\AbstractDeleteComponent;
 use Tall\Fluxo\Models\Fluxo;
+use Tall\Fluxo\Models\FluxoEtapaProduto;
 
 class DeleteComponent extends AbstractDeleteComponent
 {
@@ -18,7 +19,7 @@ class DeleteComponent extends AbstractDeleteComponent
 
     public $title = "Excluir";
 
-    public function mount(Fluxo $model)
+    public function mount(FluxoEtapaProduto $model)
     {
         $this->authorize(Route::currentRouteName());
         $this->setFormProperties($model);
@@ -26,7 +27,7 @@ class DeleteComponent extends AbstractDeleteComponent
     }
 
     public function route(){
-         Route::get('/produtos/{model}/excluir', static::class)->name('admin.produtos.delete');
+         Route::get('/produtos/{model}/excluir', static::class)->name('admin.fluxo.produtos.delete');
     }
 
     public function redirectList()
@@ -37,17 +38,17 @@ class DeleteComponent extends AbstractDeleteComponent
 
             return;
         }
-        return $this->kill('admin.produtos');
+        return $this->kill('admin.fluxo.produtos');
     }
 
     public function getListProperty()
     {
-        return 'admin.produtos';
+        return 'admin.fluxo.produtos';
     }
 
     public function cancel()
     {
-        return redirect()->route('admin.produtos');
+        return redirect()->route('admin.fluxo.produtos');
     }
 
     public function view()

@@ -24,11 +24,11 @@ class EditComponent extends FormComponent
         $this->authorize(Route::currentRouteName());
         $this->setFormProperties($model);
 
-        dd($model->toArray());
+        // dd($model->toArray());
     }
 
     public function route(){
-        Route::get('/produtos/{model}/editar', static::class)->name('admin.produtos.edit');
+        Route::get('/produtos/{model}/editar', static::class)->name('admin.fluxo.produtos.edit');
     }
 
     public function rules()
@@ -42,31 +42,38 @@ class EditComponent extends FormComponent
     {
         $result  = collect(config('tall-fluxo.fildes.before',[]));
 
-        if($fluxo_etapa_items = $this->etapa->fluxo_etapa_items){
+         if($etapas = data_get($this->model,'fluxo.fluxo_etapas')){
 
-            $result->push(...$fluxo_etapa_items->map(function($field){
-                     return Field::make($field->id,
-                     $field->name,
-                     $field->slug,
-                     $field->type,
-                     $field->description,
-                     $field->width,
-                     $field->visible,
-                     $field->evento,
-                     $field->status,
-                     $field->fluxo_field_id)
-                     ->form_attributes($field->form_attributes($field))
-                     ->form_options($field->form_options())
-                     ->form_db_options($field->form_db_options())
-                     ->fluxo_field($field->fluxo_field);
-            }));
-        }
-       return $result;
+         foreach($etapas as $etapa){
+                if($fluxo_etapa_items = data_get($etapa,'fluxo_etapa_items_all')){
+
+                    $result->push(...$fluxo_etapa_items->map(function($field){
+                            return Field::make($field->id,
+                            $field->name,
+                            $field->slug,
+                            $field->type,
+                            $field->description,
+                            $field->width,
+                            $field->visible,
+                            $field->evento,
+                            $field->fluxo_field_id,
+                            $field->status)
+                            ->form_attributes($field->form_attributes($field))
+                            ->form_options($field->form_options())
+                            ->form_db_options($field->form_db_options())
+                            ->fluxo_field($field->fluxo_field);
+                    }));
+
+                }
+            }
+         }
+
+       return $result->unique('fluxo_field_id');
     }
     
     public function getListProperty()
     {
-        return 'admin.produtos';
+        return 'admin.fluxo.produtos';
     }
 
     public function view()

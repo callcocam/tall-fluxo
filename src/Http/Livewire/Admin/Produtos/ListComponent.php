@@ -20,7 +20,7 @@ class ListComponent extends TableComponent
     }
 
     public function route(){
-        Route::get('/produtos', static::class)->name('admin.produtos');
+        Route::get('/produtos', static::class)->name('admin.fluxo.produtos');
     }
 
     public function query()
@@ -36,7 +36,7 @@ class ListComponent extends TableComponent
 
     public function getListProperty()
     {
-        return 'admin.produtos';
+        return 'admin.fluxo.produtos';
     }
 
     public function getCreateProperty()
@@ -46,21 +46,21 @@ class ListComponent extends TableComponent
 
     public function getShowProperty()
     {
-       return 'admin.produtos.view';
+       return 'admin.fluxo.produtos.view';
     }
     public function getEditProperty()
     {
-       return 'admin.produtos.edit';
+       return 'admin.fluxo.produtos.edit';
     }
     
     public function getDeleteProperty()
     {
-       return 'admin.produtos.delete';
+       return 'admin.fluxo.produtos.delete';
     }
 
     public function getOrderProperty()
     {
-       return 'admin.produtos.order';
+       return 'admin.fluxo.produtos.order';
     }
     public function view()
     {
