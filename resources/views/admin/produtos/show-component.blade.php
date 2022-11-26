@@ -14,7 +14,21 @@
                             {{-- <p class="mt-1 max-w-2xl text-sm text-gray-500">Personal details and application.</p> --}}
                         </div>
                         <div class="border-t border-gray-200">
-                            Ver o que fazer aqui
+                            @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
+                                @foreach ($fluxo_etapa_items as $field)
+
+                                    @if ($field->visible)
+                                        <div
+                                            class="col-span-{{ $field->width }} p-2 bg-gray-50 rounded-md form-edicao-produtos">
+                                            @if ($fluxo_field = $field->fluxo_field)
+                                              {{$field->name}} -
+                                            @else
+                                                {{$field->name}}-
+                                            @endif
+                                        </div>
+                                    @endif
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
