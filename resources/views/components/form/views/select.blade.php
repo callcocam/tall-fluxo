@@ -6,7 +6,7 @@
             @if ($options = $field->form_options)
                 @foreach ($options as $option)
                     <option value="{{ data_get($option, 'id') }}">
-                        {{ sprintf('%s %s', data_get($option, 'name'), data_get($option, 'description')) }}
+                        {{ sprintf('%s', data_get($option, 'name')) }}
                     </option>
                 @endforeach
             @endif

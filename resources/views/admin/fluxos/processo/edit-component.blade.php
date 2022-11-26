@@ -57,7 +57,7 @@
                             @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
                                 @foreach ($fluxo_etapa_items as $field)
                                     @if ($field->visible)
-                                        <div class="col-span-{{$field->width}} p-2 bg-gray-100 rounded-md">
+                                        <div class="col-span-{{$field->width}} p-2 bg-gray-100 rounded-md form-edicao-produtos">
                                             @if ($fluxo_field = $field->fluxo_field)
                                                 <x-dynamic-component
                                                     component="{{ sprintf('tall-form.views.%s', data_get($fluxo_field, 'view', 'text')) }}"
@@ -106,4 +106,22 @@
             </div>
         </div>
     </div>
+    <style>
+      .form-edicao-produtos input{
+          width: 100%;
+          padding: 5px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+      }
+      .form-edicao-produtos input:focus{
+       border: 1px solid #5c88f3 !important;
+      }
+      .form-edicao-produtos select{
+          width: 100%;
+          padding: 5px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+      }
+    </style>
 </div>
+
