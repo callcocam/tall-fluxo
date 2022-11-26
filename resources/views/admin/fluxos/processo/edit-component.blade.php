@@ -35,7 +35,7 @@
                                                 @foreach ($fluxo_etapas as $fluxo_etapa)
                                                     @can(sprintf('admin.%s.processo.edit', $fluxo->id))
                                                         <a href="{{ route(sprintf('admin.%s.processo.edit', $fluxo->id), ['etapa' => $fluxo_etapa, 'model' => $model]) }}"
-                                                            @if ($fluxo_etapa->id == $etapa->id) class="border-indigo-500 text-indigo-600 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm"
+                                                            @if ($fluxo_etapa->id == $etapa->id) class="border-indigo-500 text-indigo-600 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm uppercase font-bold"
                                                         @else
                                                         class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 whitespace-nowrap flex py-4 px-1 border-b-2 font-medium text-sm"> @endif
                                                             <span class="uppercase">
@@ -51,7 +51,7 @@
                             @endif
                         @endforeach
                     @endif
-                    <form wire:submit.prevent="submit" class="border-t border-gray-200">
+                    <form wire:submit.prevent="submit" >
                         <x-errors />
                         <div class="grid grid-cols-12 gap-x-4 gap-y-2 p-5">
                             @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
