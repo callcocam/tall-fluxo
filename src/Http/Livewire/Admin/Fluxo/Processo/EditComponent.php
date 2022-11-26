@@ -49,16 +49,18 @@ class EditComponent extends FormComponent
 
                 }
             }
+            // dd($model);
             data_set($this->data, 'fluxo_etapa_id', data_get($model, 'fluxo_etapa_id'));
+            data_set($this->data, 'fluxo_id', data_get($etapa, 'fluxo_id'));
         }
     }
     protected function save(){ 
         try {
-            $products = $this->data->only(array_merge(['fluxo_etapa_id'], $this->products))->toArray();
+            $products = $this->data->only(array_merge(['fluxo_etapa_id','fluxo_id'], $this->products))->toArray();
             
             $this->model->update($products); 
 
-            foreach($this->data->except(array_merge(['fluxo_etapa_id'], $this->products)) as $fluxo_field_id => $name){
+            foreach($this->data->except(array_merge(['fluxo_etapa_id','fluxo_id'], $this->products)) as $fluxo_field_id => $name){
                 $data['name']=$name;
                 $data['fluxo_field_id']=$fluxo_field_id;
                  if($model=  $this->model->fluxo_etapa_produto_items()

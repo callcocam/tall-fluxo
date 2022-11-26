@@ -23,6 +23,8 @@ class EditComponent extends FormComponent
     {
         $this->authorize(Route::currentRouteName());
         $this->setFormProperties($model);
+
+        dd($model->toArray());
     }
 
     public function route(){
