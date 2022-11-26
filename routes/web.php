@@ -34,7 +34,13 @@ $components = [
     \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\CreateComponent::class,
     \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\ShowComponent::class,
     \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\DeleteComponent::class,
-    \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\OrderComponent::class,
+    \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\OrderComponent::class,    
+    \Tall\Fluxo\Http\Livewire\Admin\Produtos\ListComponent::class,
+    \Tall\Fluxo\Http\Livewire\Admin\Produtos\EditComponent::class,
+    // \Tall\Fluxo\Http\Livewire\Admin\Produtos\CreateComponent::class,
+    \Tall\Fluxo\Http\Livewire\Admin\Produtos\ShowComponent::class,
+    \Tall\Fluxo\Http\Livewire\Admin\Produtos\DeleteComponent::class,
+    // \Tall\Fluxo\Http\Livewire\Admin\Produtos\OrderComponent::class,
 ];
 foreach($components as $component){
     $comp =  app($component);

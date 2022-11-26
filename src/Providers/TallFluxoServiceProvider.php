@@ -71,6 +71,14 @@ class TallFluxoServiceProvider extends ServiceProvider
             Livewire::component( 'tall::admin.fluxo.processo.delete-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo\DeleteComponent::class);
             
 
+            
+            Livewire::component( 'tall::admin.produtos.list-component', \Tall\Fluxo\Http\Livewire\Admin\Produtos\ListComponent::class);
+            Livewire::component( 'tall::admin.produtos.edit-component', \Tall\Fluxo\Http\Livewire\Admin\Produtos\EditComponent::class);
+            Livewire::component( 'tall::admin.produtos.create-component', \Tall\Fluxo\Http\Livewire\Admin\Produtos\CreateComponent::class);
+            Livewire::component( 'tall::admin.produtos.show-component', \Tall\Fluxo\Http\Livewire\Admin\Produtos\ShowComponent::class);
+            Livewire::component( 'tall::admin.produtos.delete-component', \Tall\Fluxo\Http\Livewire\Admin\Produtos\DeleteComponent::class);
+            
+
 
             Livewire::component( 'tall::admin.fluxo.fields.list-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\ListComponent::class);
             Livewire::component( 'tall::admin.fluxo.fields.edit-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\EditComponent::class);
