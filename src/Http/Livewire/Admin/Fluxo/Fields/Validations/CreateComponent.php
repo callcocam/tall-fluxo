@@ -28,6 +28,6 @@ class CreateComponent extends FormComponent
 
     public function getOptionsProperty()
     {
-        return config('tall.validations',[]);
+        return config('tall-fluxo.validations',[]);
     }
 }
