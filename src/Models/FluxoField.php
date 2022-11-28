@@ -16,7 +16,7 @@ class FluxoField extends AbstractModel
     use HasFactory, BelongsToTenants, UsesTenantConnection;
 
     protected $guarded = ['id'];
-    protected $with = ['fluxo_field_attributes', 'fluxo_field_options','fluxo_field_db'];
+    protected $with = ['fluxo_field_attributes', 'fluxo_field_options','fluxo_field_db','fluxo_field_validations'];
     protected $appends = ['fluxo_field_etapa'];
 
      /**
@@ -47,6 +47,13 @@ class FluxoField extends AbstractModel
     {
         return $this->belongsTo(FluxoEtapa::class)->orderBy('ordering')->pluck('id','id');
     }
+    
+
+    public function fluxo_field_validations()
+    {
+        return $this->hasMany(FluxoFieldValidation::class);
+    }
+    
     
 
     public function fluxo_field_attributes()

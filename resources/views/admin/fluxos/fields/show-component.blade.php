@@ -34,6 +34,8 @@
 
                 @endif
             </div>
+            @livewire('tall::admin.fluxos.fields.validations.create-component', ['model' => $model], key(sprintf('%s-attributes', $model->id)))
+              
         </div>
     </div>
 </div>

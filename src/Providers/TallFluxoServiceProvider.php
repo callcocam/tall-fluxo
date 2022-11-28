@@ -87,6 +87,9 @@ class TallFluxoServiceProvider extends ServiceProvider
             Livewire::component( 'tall::admin.fluxo.fields.delete-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\DeleteComponent::class);
             Livewire::component( 'tall::admin.fluxo.fields.order-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\OrderComponent::class);
             
+            Livewire::component( 'tall::admin.fluxos.fields.validations.edit-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Validations\EditComponent::class);
+            Livewire::component( 'tall::admin.fluxos.fields.validations.create-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Validations\CreateComponent::class);
+            
             Livewire::component( 'tall::admin.fluxos.fields.attributes.edit-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Attributes\EditComponent::class);
             Livewire::component( 'tall::admin.fluxos.fields.attributes.create-component', \Tall\Fluxo\Http\Livewire\Admin\Fluxo\Fields\Attributes\CreateComponent::class);
             
