@@ -1,13 +1,13 @@
 <div class="w-full">
     <label for="{{ $validateName }}-validations"
-        class="block text-sm font-medium text-gray-700">{{ data_get($option, 'label') }}</label>
+        class="block text-sm font-medium text-gray-700">{{ __(data_get($option, 'label')) }}</label>
     <div class="mt-1 flex">
         <div class="flex-1">
             @if (data_get($option, 'params'))
                 <input type="text" name="{{ $validateName }}" id="{{ $validateName }}-validations"
                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     wire:model.defer="data.fluxo_field_validations.description"
-                    placeholder="{{ data_get($option, 'label') }}" aria-describedby="{{ $validateName }}-validations" />
+                    placeholder="{{ $validateName }}" aria-describedby="{{ $validateName }}-validations" />
             @endif
         </div>
         <div class=" flex items-center justify-center">
@@ -26,6 +26,6 @@
         </div>
     </div>
     @if ($help = data_get($option, 'help'))
-        <p class="mt-2 text-sm text-gray-500" id="email-description">{!! $help !!}</p>
+        <p class="mb-2 text-sm text-red-300" id="email-description">{!! $help !!}</p>
     @endif
 </div>
