@@ -52,25 +52,25 @@ class FluxoField extends AbstractModel
     {
         return $this->fluxo_field_validations()->pluck('description','name')->toArray();
     }
-    
+
 
     public function fluxo_field_validations()
     {
         return $this->hasMany(FluxoFieldValidation::class);
     }
-    
-    
+
+
 
     public function fluxo_field_attributes()
     {
         return $this->hasMany(FluxoFieldAttribute::class)->orderBy('ordering');
     }
-    
+
     public function fluxo_field_options()
     {
         return $this->hasMany(FluxoFieldOption::class)->orderBy('ordering');
     }
-    
+
     public function fluxo_field_db()
     {
         return $this->hasOne(FluxoFieldDb::class);
