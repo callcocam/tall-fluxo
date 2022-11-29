@@ -93,11 +93,14 @@ class EditComponent extends FormComponent
 
                     foreach ($fluxo_field_validations as $key => $value) {
 
+                     if(in_array($key,['unique'])){
+                        $validations[] = sprintf("%s:%s,%s", $key, $value, $this->model->id);
+                     }else{
                         if($value)
                             $validations[] = sprintf("%s:%s", $key, $value);
                         else
                             $validations[] = $key;
-
+                        }
                     }
                     $result[$fluxo_etapa_item->fluxo_field_id] = $validations;
                 }
