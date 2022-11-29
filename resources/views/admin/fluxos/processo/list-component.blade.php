@@ -10,7 +10,7 @@
                 <div class="bg-white shadow-md rounded px-4">
                     <div class="sm:flex sm:items-center pt-6 pb-4">
                         <div class="sm:flex-auto">
-                            <h1 class="text-xl font-semibold text-gray-900">Etapa do cadastro: {{$etapa->name}}</h1>
+                            <h1 class="text-xl font-semibold text-gray-900">Etapa do cadastro: {{ $etapa->name }}</h1>
                             @isset($description)
                                 <p class="mt-2 text-sm text-gray-700">{{ $description }}</p>
                             @endisset
@@ -18,7 +18,7 @@
                         <div class="mt-4 sm:mt-0 sm:ml-16 flex items-center space-x-2">
                             <x-tall-table.filters.clear :filters="$filters" />
                             <x-tall-table.search />
-                            @if($etapa->ordering == 1)
+                            @if ($etapa->ordering == 1)
                                 @if (\Route::has($this->create))
                                     <x-tall-table.add href="{{ route($this->create, $etapa) }}">
                                         {{ __('Cadastrar novo Produto') }}
@@ -73,7 +73,11 @@
                                                                         {{ data_get($form_options, $name) }}
                                                                     @endif
                                                                 @else
-                                                                    {{ data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)) }}
+                                                                    @if ($produto = data_get($model, sprintf('produtos.%s', $fluxo_etapa_item->fluxo_field_id)))
+                                                                        {{ $produto }}
+                                                                    @else
+                                                                        {{ data_get($model, $fluxo_etapa_item->id) }}
+                                                                    @endif
                                                                 @endif
                                                             @else
                                                                 {{ data_get($model, $fluxo_etapa_item->name) }}

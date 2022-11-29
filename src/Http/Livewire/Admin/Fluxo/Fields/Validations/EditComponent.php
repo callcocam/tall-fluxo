@@ -23,6 +23,8 @@ class EditComponent extends FormComponent
         $this->setFormProperties($model);
         $this->modelValidation = $this->model->fluxo_field_validations()
         ->whereName($this->validateName)->first();
+        if($this->modelValidation)
+        data_set($this->data, 'fluxo_field_validations.description', $this->modelValidation->description);
         data_set($this->data, 'fluxo_field_validations.name', $this->validateName);
     }
 

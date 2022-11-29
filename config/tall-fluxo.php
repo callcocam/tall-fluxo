@@ -6,6 +6,7 @@
 */
 
 use Tall\Fluxo\Core\Fields\Field;
+use Illuminate\Validation\Rule;
 
 return [
     'fildes'=>[
@@ -18,7 +19,12 @@ return [
             8,
             1,
             'defer',
-            'published')->form_attributes([
+            null,
+            'published')
+            ->fluxo_field_validation([
+                'required'=>null
+            ])
+            ->form_attributes([
                 'wire:model.defer'=>'data.nome_produto',
                 'type'=>'text',
                 'class'=>'block w-full rounded-md border-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
@@ -31,7 +37,12 @@ return [
             4,
             1,
             'defer',
-            'published')->form_attributes([
+            null,
+            'published')
+            ->fluxo_field_validation([
+                'required'=>null,
+                'unique'=>'fluxo_etapa_produtos,cod_barras'
+            ])->form_attributes([
                 'wire:model.defer'=>'data.cod_barras',
                 'type'=>'text',
                 'class'=>'block w-full rounded-md border-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'

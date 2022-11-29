@@ -82,26 +82,63 @@ class EditComponent extends FormComponent
     }
     public function rules()
     {
-        return [
-            'cod_barras'=>[
-                'required',
-                Rule::unique('fluxo_etapa_produtos', 'cod_barras')->ignore($this->model->id)
-            ]
-         ];
+        $result= [];
+
+        if($fluxo_etapa_items = $this->FluxoEtapaItems){
+
+           foreach($fluxo_etapa_items as $fluxo_etapa_item){
+                if($fluxo_field_validations = $fluxo_etapa_item->fluxo_field_validation){
+
+                    $validations =[];
+
+                    foreach ($fluxo_field_validations as $key => $value) {
+
+                        if($value)
+                            $validations[] = sprintf("%s:%s", $key, $value);
+                        else
+                            $validations[] = $key;
+
+                    }
+                    $result[$fluxo_etapa_item->fluxo_field_id] = $validations;
+                }
+            }
+
+        }
+        
+        return $result;
     }
     
+    public function validationAttributes()
+    {
+        $result  = [];
+
+        if($fluxo_etapa_items = $this->FluxoEtapaItems){
+
+            
+            foreach($fluxo_etapa_items as $fluxo_etapa_item){
+ 
+                $result[sprintf('data.%s', $fluxo_etapa_item->fluxo_field_id)] = $fluxo_etapa_item->label;
+ 
+            }
+ 
+         }
+
+        return $result;
+    }
+
     public function getListProperty()
     {
         return sprintf('admin.%s.processo', data_get($this->etapa, 'fluxo.id', 'fluxos'));
     }
 
+   
     public function getFluxoEtapaItemsProperty()
     {
-        $result  = collect(config('tall-fluxo.fildes.before',[]));
+        $fluxo_fields  = collect(config('tall-fluxo.fildes.before',[]));
 
         if($fluxo_etapa_items = $this->etapa->fluxo_etapa_items){
 
-            $result->push(...$fluxo_etapa_items->map(function($field){
+            $fluxo_fields->push(...$fluxo_etapa_items->map(function($field){
                      return Field::make($field->id,
                      $field->name,
                      $field->slug,
@@ -110,15 +147,16 @@ class EditComponent extends FormComponent
                      $field->width,
                      $field->visible,
                      $field->evento,
-                     $field->status,
-                     $field->fluxo_field_id)
+                     $field->fluxo_field_id,
+                     $field->status)
+                     ->fluxo_field_validation(data_get($field,'fluxo_field.fluxo_field_validation'))
                      ->form_attributes($field->form_attributes($field))
                      ->form_options($field->form_options())
                      ->form_db_options($field->form_db_options())
                      ->fluxo_field($field->fluxo_field);
             }));
         }
-       return $result;
+       return $fluxo_fields;
     }
     public function view()
     {

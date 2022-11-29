@@ -18,6 +18,7 @@ class Field
     protected $listado = false;
     protected $form_attributes = [];
     protected $form_options = [];
+    protected $fluxo_field_validation = [];
 
     public function __construct(
         public $id,
@@ -33,6 +34,8 @@ class Field
     )
     {
        $this->label = Str::title($name);
+       if(empty($id)) $this->id = $name;
+       if(empty($fluxo_field_id)) $this->fluxo_field_id = $name;
     }
 
 
@@ -63,6 +66,13 @@ class Field
     public function form_options($form_options)
     {
         $this->form_options = $form_options;
+
+        return $this;
+    }
+
+    public function fluxo_field_validation($fluxo_field_validation)
+    {
+        $this->fluxo_field_validation = $fluxo_field_validation;
 
         return $this;
     }
