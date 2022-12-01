@@ -17,6 +17,8 @@ class FluxoEtapaProdutoItem extends AbstractModel
 
     protected $guarded = ['id'];
 
+    protected $with = ['fluxo_etapa_produto'];
+
      /**
      * The attributes that should be cast.
      *

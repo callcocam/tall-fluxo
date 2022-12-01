@@ -17,7 +17,8 @@ class FluxoEtapa extends AbstractModel
 
     protected $guarded = ['id'];
     // protected $with = ['fluxo_etapa_items','fluxo'];
-    protected $with = ['fluxo_etapa_items','fluxo_etapa_items_all'];
+    // protected $with = ['fluxo_etapa_items','fluxo'];
+    // protected $with = ['fluxo_etapa_items','fluxo_etapa_items_all'];
     // protected $appends = ['etapa_items'];
 
      /**
@@ -55,7 +56,17 @@ class FluxoEtapa extends AbstractModel
     
     public function getEtapaItemsAttribute()
     {
-        return $this->fluxo->fluxo_etapas()->pluck('id','id');
+        $fluxo = $this->fluxo;
+
+       if(cache()->has(sprintf("etapa-items-%s", $fluxo->id))){
+         return cache()->ge(sprintf("etapa-items-%s", $fluxo->id));
+       }
+
+       $cache =  $fluxo->fluxo_etapas()->pluck('id','id');
+
+       cache()->set(sprintf("etapa-items-%s", $fluxo->id), $cache);
+
+        return $cache;
     }
     
     public function getTotalAttribute()

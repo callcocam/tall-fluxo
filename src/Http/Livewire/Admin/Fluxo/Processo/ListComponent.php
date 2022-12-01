@@ -90,25 +90,25 @@ class ListComponent extends TableComponent
     {
         $result  = collect(config('tall-fluxo.fildes.before',[]));
 
-        if($fluxo_etapa_items = data_get($this->etapa, 'fluxo_etapa_items')){
-            $result->push(...$fluxo_etapa_items->map(function($field){
-                     return Field::make($field->id,
-                     $field->name,
-                     $field->slug,
-                     $field->type,
-                     $field->description,
-                     $field->width,
-                     $field->visible,
-                     $field->evento,
-                     $field->fluxo_field_id,
-                     $field->status
-                     )
-                     ->form_attributes($field->form_attributes($field))
-                     ->form_options($field->form_options())
-                     ->form_db_options($field->form_db_options())
-                     ->fluxo_field($field->fluxo_field);
-            }));
-        }
+        // if($fluxo_etapa_items = data_get($this->etapa, 'fluxo_etapa_items')){
+        //     $result->push(...$fluxo_etapa_items->map(function($field){
+        //              return Field::make($field->id,
+        //              $field->name,
+        //              $field->slug,
+        //              $field->type,
+        //              $field->description,
+        //              $field->width,
+        //              $field->visible,
+        //              $field->evento,
+        //              $field->fluxo_field_id,
+        //              $field->status
+        //              )
+        //              ->form_attributes($field->form_attributes($field))
+        //              ->form_options($field->form_options())
+        //              ->form_db_options($field->form_db_options())
+        //              ->fluxo_field($field->fluxo_field);
+        //     }));
+        // }
        return $result;
     }
     public function view()

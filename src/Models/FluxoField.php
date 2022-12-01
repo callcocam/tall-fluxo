@@ -16,7 +16,7 @@ class FluxoField extends AbstractModel
     use HasFactory, BelongsToTenants, UsesTenantConnection;
 
     protected $guarded = ['id'];
-    protected $with = ['fluxo_field_attributes', 'fluxo_field_options','fluxo_field_db','fluxo_field_validations'];
+    // protected $with = ['fluxo_field_attributes', 'fluxo_field_options','fluxo_field_db','fluxo_field_validations'];
     protected $appends = ['fluxo_field_etapa','fluxo_field_validation'];
 
      /**

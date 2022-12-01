@@ -10,6 +10,7 @@ namespace Tall\Fluxo\Http\Livewire\Admin\Fluxo\Processo;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Cache;
 use Tall\Fluxo\Core\Fields\Field;
 use Tall\Http\Livewire\FormComponent;
 use Tall\Fluxo\Models\FluxoEtapa;
@@ -150,28 +151,34 @@ class CreateComponent extends FormComponent
 
         if($fluxo_etapa_items = $this->etapa->fluxo_etapa_items){
 
-            $fluxo_fields->push(...$fluxo_etapa_items->map(function($field){
-                     return Field::make($field->id,
-                     $field->name,
-                     $field->slug,
-                     $field->type,
-                     $field->description,
-                     $field->width,
-                     $field->visible,
-                     $field->evento,
-                     $field->fluxo_field_id,
-                     $field->status)
-                     ->fluxo_field_validation(data_get($field,'fluxo_field.fluxo_field_validation'))
-                     ->form_attributes($field->form_attributes($field))
-                     ->form_options($field->form_options())
-                     ->form_db_options($field->form_db_options())
-                     ->fluxo_field($field->fluxo_field);
-            }));
+            $fluxo_fields->push(...$this->cacheQuery($fluxo_etapa_items,$this->etapa->id ));
         }
        return $fluxo_fields;
     }
     public function view()
     {
         return sprintf('tall::admin.%s.processo.create', data_get($this->config, 'fluxo.route', 'fluxos'));
+    }
+
+    protected function cacheQuery($items, $key, $timeout = 60) {
+        return Cache::remember($key, $timeout, function() use($items) {
+                return $items->map(function($field){
+                    return Field::make($field->id,
+                    $field->name,
+                    $field->slug,
+                    $field->type,
+                    $field->description,
+                    $field->width,
+                    $field->visible,
+                    $field->evento,
+                    $field->fluxo_field_id,
+                    $field->status)
+                    ->fluxo_field_validation(data_get($field,'fluxo_field.fluxo_field_validation'))
+                    ->form_attributes($field->form_attributes($field))
+                    ->form_options($field->form_options())
+                    ->form_db_options($field->form_db_options())
+                    ->fluxo_field($field->fluxo_field);
+            });
+        });
     }
 }
