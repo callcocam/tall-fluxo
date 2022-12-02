@@ -34,7 +34,7 @@ class EditComponent extends FormComponent
     public function rules()
     {
         return [
-            'name' => 'required',
+//            'name' => 'required',
         ];
     }
 
@@ -70,7 +70,7 @@ class EditComponent extends FormComponent
 
        return $result->unique('fluxo_field_id');
     }
-    
+
     public function getListProperty()
     {
         return 'admin.fluxo.produtos';
