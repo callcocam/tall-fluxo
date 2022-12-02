@@ -52,7 +52,6 @@
                         @endforeach
                     @endif
                     <form wire:submit.prevent="submit" >
-                        <x-errors />
                         <div class="grid grid-cols-12 gap-x-4 gap-y-2 p-5">
                             @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
                                 @foreach ($fluxo_etapa_items as $field)
@@ -91,6 +90,9 @@
                                     </select>
                                 </label>
                             </div>
+                                <div class="col-span-12">
+                                      <x-errors />
+                                </div>
                             <div class="bg-white px-4 py-5 flex justify-between sm:px-6 col-span-12">
                                 @if ($list = $this->list)
                                     <x-button red squared href="{{ route($this->list, $etapa) }}"
@@ -100,6 +102,7 @@
                                     label="{{ __('Salvar alterações') }}" />
                             </div>
                         </div>
+
                     </form>
 
                 </div>
