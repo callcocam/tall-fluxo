@@ -11,24 +11,53 @@
                         <div class="px-4 py-5 sm:px-6">
                             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ $model->nome_produto }}</h3>
                         </div>
-{{--                        @dd($model->produtos)--}}
+                        <div class="px-4 sm:px-6 lg:px-8">
+                            <div class="sm:flex sm:items-center">
+                                <div class="sm:flex-auto">
+                                    <h1 class="text-xl font-semibold text-gray-900">{{$model->nome_produto}}</h1>
+                                </div>
+                                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                                    <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Editar</button>
+                                </div>
+                            </div>
+                            <div class="mt-8 flex flex-col">
+                                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                            <table class="min-w-full divide-y divide-gray-300">
+                                                <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Nome do campo</th>
+                                                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Dados do campo</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="divide-y divide-gray-200 bg-white">
+                                                <tr>
+                                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"> Código de barras: </td>
+                                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{$model->cod_barras}}</td>
+                                                </tr>
+                                                @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
+                                                    @foreach ($fluxo_etapa_items as $field)
+                                                                @if ($fluxo_field = $field->fluxo_field)
+                                                                    <tr>
+                                                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"> {{$field->name}}</td>
+                                                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{data_get($model->produtos, $field->fluxo_field_id)}}</td>
+                                                                    </tr>
+                                                                @endif
+                                                    @endforeach
+                                                @endif
 
-                        <div class="border-t border-gray-200">
-                           Nome do Produto: {{$model->nome_produto}}<br/>
-                           Código de barras: {{$model->cod_barras}}
-                            @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
-                                @foreach ($fluxo_etapa_items as $field)
-                                    @if ($field->visible)
-                                        <div
-                                            class="col-span-{{ $field->width }} p-2 bg-gray-50 rounded-md form-edicao-produtos">
-                                            @if ($fluxo_field = $field->fluxo_field)
-                                                {{$field->name}}  : {{data_get($model->produtos, $field->fluxo_field_id)}}
-                                            @endif
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    @endif
-                                @endforeach
-                            @endif
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+
+
+
                     </div>
                 </div>
             </div>
