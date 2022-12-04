@@ -19,7 +19,7 @@
                             <x-tall-table.per-page :options="$optionsPerPage"/>
                             <x-tall-table.search />
                             <x-tall-table.add href="{{ route($this->create) }}">
-                                {{ __('Adicionar Post') }}
+                                {{ __('Adicionar') }}
                             </x-tall-table.add>
                         </div>
                     </div>

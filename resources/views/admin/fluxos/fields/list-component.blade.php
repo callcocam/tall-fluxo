@@ -18,7 +18,7 @@
                             <x-tall-table.filters.clear :filters="$filters" />
                             <x-tall-table.search />
                             <x-tall-table.add href="{{ route($this->create) }}">
-                                {{ __('Adicionar Post') }}
+                                {{ __('Adicionar') }}
                             </x-tall-table.add>
                             @if (\Route::has($this->order))
                                 <x-tall-table.order href="{{ route($this->order) }}" />
