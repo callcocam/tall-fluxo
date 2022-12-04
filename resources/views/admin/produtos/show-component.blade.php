@@ -8,10 +8,7 @@
             <div class="w-full">
                 <div class="bg-white shadow-md rounded">
                     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                        <div class="px-4 py-5 sm:px-6">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">{{ $model->nome_produto }}</h3>
-                        </div>
-                        <div class="px-4 sm:px-6 lg:px-8">
+                        <div class="px-4  py-5 sm:px-6 lg:px-8">
                             <div class="sm:flex sm:items-center">
                                 <div class="sm:flex-auto">
                                     <h1 class="text-xl font-semibold text-gray-900">{{$model->nome_produto}}</h1>
