@@ -38,8 +38,10 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(__DIR__.'/../../routes/api.php');
 
             if (Schema::hasTable('fluxos')) {
-                Route::prefix(config('tall.multitenancy.prefix','admin'))
-                ->middleware([
+                Route::
+                // prefix(config('tall.multitenancy.prefix','admin'))
+                // ->middleware([
+                middleware([
                     'web',
                     'auth:sanctum',
                     config('jetstream.auth_session'),
