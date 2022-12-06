@@ -19,12 +19,26 @@ class EditComponent extends FormComponent
     use AuthorizesRequests;
 
     public $title = "Editar";
+    public $products=[];
 
     public function mount(FluxoEtapaProduto $model)
     {
         $this->authorize(Route::currentRouteName());
         $this->setFormProperties($model);
+        if ($model) {
+            $this->data = data_get($model, 'produtos');
+            $products = config('tall-fluxo.fildes.before',[]);
+            if($products){
 
+                foreach($products as $product){
+                   
+                    $this->products[] = $product->name;
+                    
+                    data_set($this->data, $product->name, data_get($model, $product->name));
+
+                }
+            }
+        }
         // dd($model->toArray());
     }
 
