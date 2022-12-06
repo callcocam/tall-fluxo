@@ -39,11 +39,12 @@ class FluxoEtapaProduto extends AbstractModel
 
     public function fluxo_etapa_produto_items()
     {
-        return $this->hasMany(FluxoEtapaProdutoItem::class);
+        return $this->hasMany(FluxoEtapaProdutoItem::class, 'fluxo_etapa_produto_id');
     }
 
     public function getProdutosAttribute()
     {
+        
         return $this->hasMany(FluxoEtapaProdutoItem::class)->pluck('name','fluxo_field_id');
     }
 

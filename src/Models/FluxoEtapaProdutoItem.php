@@ -33,6 +33,6 @@ class FluxoEtapaProdutoItem extends AbstractModel
     
     public function fluxo_etapa_produto()
     {
-        return $this->hasOne(FluxoEtapaProduto::class);
+        return $this->belongsTo(FluxoEtapaProduto::class);
     }
 }

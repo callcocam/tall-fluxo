@@ -71,19 +71,30 @@ class EditComponent extends FormComponent
        return $result->unique('fluxo_field_id');
     }
 
+    protected function save(){ 
+        try {
+            $products = $this->data->only($this->products)->toArray();
+            $this->model->update($products); 
+            
+            foreach($this->data->except($this->products) as $fluxo_field_id => $name){
+                $data['name']=$name;
+                 if($model=  $this->model->fluxo_etapa_produto_items()
+                 ->where('fluxo_field_id',$fluxo_field_id)
+                 ->first()){
+                    $model->update($data);
+                }
+                else{
+                    $this->model->fluxo_etapa_produto_items()->create($data);
+                }
+            }
+            $this->success( __('sucesso'), __("Cadastro atualizado com sucesso!!"));
+            return true;
+        } catch (\PDOException $PDOException) {
+            $this->error('erro', __($PDOException->getMessage()));
+            return false;
+        }
 
-//
-//    public function getFluxoEtapaItemsProperty()
-//    {
-//        $fluxo_fields  = collect(config('tall-fluxo.fildes.before',[]));
-//
-//        if($fluxo_etapa_items = data_get($this->etapa, 'fluxo_etapa_items')){
-//
-//            $fluxo_fields->push(...$this->cacheQuery($fluxo_etapa_items,$this->model->id ));
-//        }
-//        return $fluxo_fields;
-//    }
-
+    }
 
     public function getListProperty()
     {
