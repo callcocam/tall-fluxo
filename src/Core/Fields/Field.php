@@ -13,6 +13,7 @@ class Field
 
     protected $form_db_options;
     protected $label;
+    protected $view = 'text';
     protected $fluxo_field;
     protected $sortable = false;
     protected $listado = false;
@@ -72,7 +73,7 @@ class Field
 
     public function fluxo_field_validation($fluxo_field_validation)
     {
-        $this->fluxo_field_validation = $fluxo_field_validation;
+        $this->fluxo_field_validation = array_filter($fluxo_field_validation);
 
         return $this;
     }
@@ -111,9 +112,17 @@ class Field
 
         return $this;
     }
+    
     public function listado($listado)
     {
         $this->listado = $listado;
+
+        return $this;
+    }
+
+    public function view($view)
+    {
+        $this->view = $view;
 
         return $this;
     }

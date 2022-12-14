@@ -51,38 +51,57 @@
                             @endif
                         @endforeach
                     @endif
-                    <form wire:submit.prevent="submit" >
+                    <form wire:submit.prevent="submit">
                         <div class="grid grid-cols-12 gap-x-4 gap-y-2 p-5">
                             @if ($fluxo_etapa_items = $this->fluxo_etapa_items)
                                 @foreach ($fluxo_etapa_items as $field)
                                     @if ($field->visible)
-                                        <div class="col-span-{{$field->width}} p-2 bg-gray-100 rounded-md form-edicao-produtos">
+                                        <div
+                                            class="col-span-{{ $field->width }} p-2 bg-gray-100 rounded-md form-edicao-produtos">
                                             @if ($fluxo_field = $field->fluxo_field)
                                                 <x-dynamic-component
                                                     component="{{ sprintf('tall-form.views.%s', data_get($fluxo_field, 'view', 'text')) }}"
                                                     :field="$field" />
                                             @else
                                                 <x-dynamic-component
-                                                    component="{{ sprintf('tall-form.views.%s', data_get($field, 'view', 'text')) }}"
+                                                    component="{{ sprintf('tall-form.views.%s', $field->view) }}"
                                                     :field="$field" />
                                             @endif
                                         </div>
                                     @endif
                                 @endforeach
                             @endif
+                            @if ($fluxo_etapa_menssages_backs = data_get($etapa, 'fluxo_etapa_menssages_back'))
+                                <ul class="col-span-12">
+                                    @foreach ($fluxo_etapa_menssages_backs as $key => $value)
+                                        <li>
+                                            {{ $value->description }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                             <div wire:key="etapas" class="col-span-12">
                                 <label class="block" for="Etapas">
                                     <span> Selecione a etapa</span>
                                     <select class="w-full  border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                        wire:model.defer="data.fluxo_etapa_id">
+                                        wire:model="data.fluxo_etapa_id">
                                         <option value="">Selecione Uma etapa</option>
                                         @if ($fluxos = \Tall\Fluxo\Models\Fluxo::query()->whereStatus('published')->get())
                                             @foreach ($fluxos as $fluxo)
                                                 @if ($fluxo_etapas = $fluxo->fluxo_etapas)
-                                                    @foreach ($fluxo_etapas as $fluxo_etapa)
-                                                        <option value="{{ $fluxo_etapa->id }}">
-                                                            {{ $fluxo_etapa->name }}
-                                                        </option>
+                                                    @foreach ($fluxo_etapas as $key => $fluxo_etapa)
+                                                        @if ($fluxo_etapa->ordering <= $etapa->ordering + 1)
+                                                            <option value="{{ $fluxo_etapa->id }}">
+                                                                @if ($etapa->ordering > $fluxo_etapa->ordering)
+                                                                    Voltar para >>
+                                                                @elseif($etapa->ordering == $fluxo_etapa->ordering)
+                                                                    Etapa corrente >>
+                                                                @else
+                                                                    Ir para >>
+                                                                @endif
+                                                                {{ $fluxo_etapa->name }}
+                                                            </option>
+                                                        @endif
                                                     @endforeach
                                                 @endif
                                             @endforeach
@@ -90,9 +109,9 @@
                                     </select>
                                 </label>
                             </div>
-                                <div class="col-span-12">
-                                      <x-errors />
-                                </div>
+                            <div class="col-span-12">
+                                <x-errors />
+                            </div>
                             <div class="bg-white px-4 py-5 flex justify-between sm:px-6 col-span-12">
                                 @if ($list = $this->list)
                                     <x-button red squared href="{{ route($this->list, $etapa) }}"
@@ -110,21 +129,22 @@
         </div>
     </div>
     <style>
-      .form-edicao-produtos input{
-          width: 100%;
-          padding: 5px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-      }
-      .form-edicao-produtos input:focus{
-       border: 1px solid #5c88f3 !important;
-      }
-      .form-edicao-produtos select{
-          width: 100%;
-          padding: 5px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-      }
+        .form-edicao-produtos input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-edicao-produtos input:focus {
+            border: 1px solid #5c88f3 !important;
+        }
+
+        .form-edicao-produtos select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
     </style>
 </div>
-

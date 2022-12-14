@@ -14,13 +14,13 @@ use Tall\Fluxo\Core\Fields\Field;
 use Tall\Http\Livewire\FormComponent;
 use Tall\Fluxo\Models\FluxoEtapa;
 use Tall\Fluxo\Models\FluxoEtapaProduto;
-use Illuminate\Validation\Rule;
 
 class EditComponent extends FormComponent
 {
     use AuthorizesRequests;
 
     public $title = "Editar";
+    public $justificativa = false;
     public $etapa;
     public $products=[];
 
@@ -30,6 +30,17 @@ class EditComponent extends FormComponent
         $this->setFormProperties($model, $etapa);
     }
 
+    public function updatedDataFluxoEtapaId($value)
+    {
+        if($model = FluxoEtapa::find($value)){
+            if($model->ordering < $this->etapa->ordering){
+                $this->justificativa = true;
+            }
+            else{
+                $this->justificativa = false;
+            }
+        }
+    }
      /**
      * @param null $model
      */
@@ -60,7 +71,7 @@ class EditComponent extends FormComponent
             
             $this->model->update($products); 
 
-            foreach($this->data->except(array_merge(['fluxo_etapa_id','fluxo_id'], $this->products)) as $fluxo_field_id => $name){
+            foreach($this->data->except(array_merge(['fluxo_etapa_id','fluxo_id','fluxo_etapa_menssages'], $this->products)) as $fluxo_field_id => $name){
                 $data['name']=$name;
                 $data['fluxo_field_id']=$fluxo_field_id;
                  if($model=  $this->model->fluxo_etapa_produto_items()
@@ -71,6 +82,12 @@ class EditComponent extends FormComponent
                 else{
                     $this->model->fluxo_etapa_produto_items()->create($data);
                 }
+            }
+
+            if($this->justificativa && $fluxo_etapa_menssages = $this->data->get('fluxo_etapa_menssages')){
+                $fluxo_etapa_menssages = array_merge($products, $fluxo_etapa_menssages);
+                $fluxo_etapa_menssages['fluxo_etapa_back_id'] = data_get($this->data, 'fluxo_etapa_id');
+                $this->etapa->fluxo_etapa_menssages()->create($fluxo_etapa_menssages);
             }
             $this->success( __('sucesso'), __("Cadastro atualizado com sucesso!!"));
             return true;
@@ -143,6 +160,28 @@ class EditComponent extends FormComponent
 
             $fluxo_fields->push(...$this->cacheQuery($fluxo_etapa_items,$this->model->id ));
         }
+
+        $fluxo_fields->push(
+            Field::make(
+                'description',
+                'fluxo_etapa_menssages.description',
+                'description',
+                'textarea',
+                'Informe ou atualize o motivo da recusa',
+                12,
+                $this->justificativa,
+                null,
+                'fluxo_etapa_menssages.description',
+                'published')
+                    ->fluxo_field_validation([
+                        'required'=>$this->justificativa,
+                    ])
+                    ->view('textarea')
+                    ->form_attributes([
+                        'wire:model.defer'=>'data.fluxo_etapa_menssages.description',
+                        'class'=>'block w-full rounded-md border-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
+                    ])->label('Menssagem de recusa'));
+
        return $fluxo_fields;
     }
     public function view()
