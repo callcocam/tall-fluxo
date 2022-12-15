@@ -34,37 +34,37 @@ class FluxoEtapa extends AbstractModel
 
     //protected $table = "table";
 
-    
+
     public function fluxo()
     {
         return $this->belongsTo(Fluxo::class);
     }
-    
+
     public function fluxo_etapa_menssages()
     {
         return $this->hasMany(FluxoEtapaMenssages::class)->orderBy('ordering');
     }
-    
+
     public function fluxo_etapa_menssages_back()
     {
         return $this->hasMany(FluxoEtapaMenssages::class,'fluxo_etapa_back_id')->orderByDesc('created_at');
     }
-    
+
     public function fluxo_etapa_items_all()
     {
         return $this->hasMany(FluxoEtapaItem::class)->orderBy('ordering')->distinct();
     }
-    
+
     public function fluxo_etapa_items()
     {
         return $this->hasMany(FluxoEtapaItem::class)->orderBy('ordering');
     }
-    
+
     public function produtos()
     {
         return $this->hasMany(FluxoEtapaProduto::class)->orderBy('ordering');
     }
-    
+
     public function getEtapaItemsAttribute()
     {
         $fluxo = $this->fluxo;
@@ -79,7 +79,7 @@ class FluxoEtapa extends AbstractModel
 
         return $cache;
     }
-    
+
     public function getTotalAttribute()
     {
         return $this->produtos->count();
