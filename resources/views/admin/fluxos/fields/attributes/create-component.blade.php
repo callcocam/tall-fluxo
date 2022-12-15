@@ -1,9 +1,9 @@
 <div class="w-full">
     <div class="bg-white shadow-md rounded p-3">
-        <fieldset class="px-4  border rounded-md flex flex-col">
+        <fieldset class="px-4 border rounded-md flex flex-col">
             <legend>Attributos</legend>
             <form wire:submit.prevent="submit"
-                class="flex items-center w-full space-x-2">
+                class="flex items-center w-full space-x-2 mb-1">
                 <div>
                     <div class="mt-1">
                         <input title="Nome do attributo" type="text"

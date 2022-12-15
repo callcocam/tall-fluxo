@@ -58,7 +58,8 @@
                             @endif
                         </select>
                     </div>
-                </div><div class=" w-full">
+                </div>
+                <div class=" w-full">
                     <div class="mt-1">
                         <select title="Coluna(s)" type="text" wire:model.lazy='data.columns'
                             class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -80,6 +81,20 @@
                                 @endforeach
                             @endif
                         </select>
+                    </div>
+                </div>
+                <div class=" w-full">
+                    <div class="mt-1">
+                        <input title="Nome do filtro na model" type="text" wire:model.lazy='data.filters'
+                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            placeholder="Filtro">
+                    </div>
+                </div>
+                <div class=" w-full">
+                    <div class="mt-1">
+                        <input title="Valor statico para o filtro" type="text" wire:model.lazy='data.filters_values'
+                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            placeholder="Valor">
                     </div>
                 </div>
                 <div class=" w-48 flex items-center justify-center">

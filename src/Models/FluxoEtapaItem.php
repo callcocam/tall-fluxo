@@ -53,7 +53,9 @@ class FluxoEtapaItem extends AbstractModel
         if($fluxo_field = $this->fluxo_field){           
             if($db = $fluxo_field->fluxo_field_db){   
                 if(class_exists($db->model)){
-                    $data = app($db->model)->pluck($db->columns,$db->key_name);
+                    $data = app($db->model)
+                    ->filter($db->filters,$db->filters_values)
+                    ->pluck($db->columns,$db->key_name);
                     if($data->count()){
                         return $data->toArray();
                     }
